@@ -1,24 +1,90 @@
-# hello
+<p align="center">
+  <h1 align="center">Katsir Web</h1>
+  <p align="center">
+    <br />
+    <a href="https://github.com/andriabakti/cafeapp-frontend"><strong>Explore the docs »</strong></a>
+    <br />
+    <br />
+    <a href="http://cafetaria.fwdev.online/">View Demo</a>
+    ·
+    <a href="https://github.com/andriabakti/cafeapp-frontend/issues">Report Bug</a>
+    ·
+    <a href="https://github.com/andriabakti/cafeapp-frontend/issues">Request Feature</a>
+  </p>
+</p>
 
-## Project setup
+<!-- TABLE OF CONTENTS -->
+
+## Table of Contents
+
+- [Table of Contents](#table-of-contents)
+- [About The Project](#about-the-project)
+  - [Built With](#built-with)
+- [Getting Started](#getting-started)
+  - [Installation](#installation)
+- [Screenshots](#screenshots)
+- [Related Project](#related-project)
+- [Contact](#contact)
+
+<!-- ABOUT THE PROJECT -->
+
+## About The Project
+
+Cafetaria is a web-basic application for customers in cafe or shop to order the products easily and personally
+
+### Built With
+
+- [VueJS](http://vuejs.org/)
+
+<!-- GETTING STARTED -->
+
+## Getting Started
+
+### Installation
+
+1. Clone repository
+
+```sh
+git clone https://github.com/andriabakti/katsir-frontend.git
 ```
+
+2. Install NPM packages
+
+```sh
 npm install
 ```
 
-### Compiles and hot-reloads for development
+3. Add .env file at root folder project, and add following
+
+```sh
+VUE_APP_BASE_URL = http://localhost:3939
 ```
+
+4. Compiles and hot-reloads for development
+
+```sh
 npm run serve
 ```
 
-### Compiles and minifies for production
-```
-npm run build
-```
+<!-- ROADMAP -->
 
-### Lints and fixes files
-```
-npm run lint
-```
+## Screenshots
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+<p align='center'>
+  <span>
+      <image width="200" src='./screenshots/landing.png' />
+      <image width="200" src='./screenshots/register.png' />
+      <image width="200" src='./screenshots/login.png' />
+      <image width="200" src='./screenshots/home.png' />
+  </span>
+</p>
+
+## Related Project
+
+- [`Cafetaria-Backend`](https://github.com/andriabakti/katsir-backend)
+
+<!-- CONTACT -->
+
+## Contact
+
+My Email : andr.bkti@gmail.com
