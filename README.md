@@ -2,14 +2,14 @@
   <h1 align="center">Katsir Web</h1>
   <p align="center">
     <br />
-    <a href="https://github.com/andriabakti/cafeapp-frontend"><strong>Explore the docs »</strong></a>
+    <a href="https://github.com/andriabakti/katsir-frontend"><strong>Explore the docs »</strong></a>
     <br />
     <br />
-    <a href="http://cafetaria.fwdev.online/">View Demo</a>
+    <a href="http://andria-katsir.netlify.app/">View Demo</a>
     ·
-    <a href="https://github.com/andriabakti/cafeapp-frontend/issues">Report Bug</a>
+    <a href="https://github.com/andriabakti/katsir-frontend/issues">Report Bug</a>
     ·
-    <a href="https://github.com/andriabakti/cafeapp-frontend/issues">Request Feature</a>
+    <a href="https://github.com/andriabakti/katsir-frontend/issues">Request Feature</a>
   </p>
 </p>
 
@@ -30,7 +30,7 @@
 
 ## About The Project
 
-Cafetaria is a web-basic application for customers in cafe or shop to order the products easily and personally
+Katsir is a web-basic application for customers in cafe or shop to order the products easily and personally
 
 ### Built With
 
@@ -57,7 +57,7 @@ npm install
 3. Add .env file at root folder project, and add following
 
 ```sh
-VUE_APP_BASE_URL = http://localhost:3939
+VUE_APP_BASE_URL = http://localhost:3939/api/v1
 ```
 
 4. Compiles and hot-reloads for development
@@ -72,16 +72,16 @@ npm run serve
 
 <p align='center'>
   <span>
-      <image width="200" src='./screenshots/landing.png' />
-      <image width="200" src='./screenshots/register.png' />
-      <image width="200" src='./screenshots/login.png' />
-      <image width="200" src='./screenshots/home.png' />
+      <image width="200" src='./previews/landing.png' />
+      <image width="200" src='./previews/register.png' />
+      <image width="200" src='./previews/login.png' />
+      <image width="200" src='./previews/home.png' />
   </span>
 </p>
 
 ## Related Project
 
-- [`Cafetaria-Backend`](https://github.com/andriabakti/katsir-backend)
+- [Katsir: Back-end](https://github.com/andriabakti/katsir-backend)
 
 <!-- CONTACT -->
 

@@ -4,7 +4,7 @@
     <div class="body row">
       <Sidebar @toggle-active="toggleModal" @toggle-exit="toggleExit" />
       <div class="content col-md-7">
-        <div class="upper">
+        <!-- <div class="upper">
           <div class="form-group">
             <select id="sort" class="form-control" @change="setSort">
               <option selected>Sort by</option>
@@ -16,7 +16,7 @@
           <div class="form-group">
             <input type="text" class="form-control" placeholder="Search" @keyup="setSearch">
           </div>
-        </div>
+        </div>-->
         <div class="lower">
           <Card
             v-for="item in products"
@@ -29,21 +29,19 @@
             @toggle-delete="toggleDelete"
           />
         </div>
-        <Pagination :data="pagination" @page-event="handlePage" />
+        <!-- <Pagination :data="pagination" @page-event="handlePage" /> -->
       </div>
       <Cart />
     </div>
     <Modal
-      v-show="modalActive" :data="dataModal"
-      @close-modal="toggleModal" @save-event="addProduct"
+      v-show="modalActive"
+      :data="dataModal"
+      @close-modal="toggleModal"
+      @save-event="addProduct"
       @fire-event="handleEventModal"
     />
     <Exit v-show="exitActive" @close-exit="toggleExit" />
-    <Delete
-      v-show="deleteActive"
-      @close-delete="toggleDelete"
-      @delete-event="deleteProduct()"
-    />
+    <Delete v-show="deleteActive" @close-delete="toggleDelete" @delete-event="deleteProduct()" />
   </div>
 </template>
 
@@ -55,7 +53,7 @@ import Cart from './components/Cart'
 import Modal from '../../../components/Home/Modal'
 import Exit from './components/ExitModal'
 import Delete from './components/DeleteModal'
-import Pagination from '../../../components/Home/Pagination'
+// import Pagination from '../../../components/Home/Pagination'
 import { mapActions, mapGetters, mapMutations } from 'vuex'
 
 export default {
@@ -66,7 +64,7 @@ export default {
     Sidebar,
     Card,
     Cart,
-    Pagination,
+    // Pagination,
     Modal,
     Exit,
     Delete
@@ -97,20 +95,20 @@ export default {
     ...mapMutations([
       'addCart'
     ]),
-    toggleExit () {
+    toggleExit() {
       this.exitActive = !this.exitActive
     },
-    toggleDelete (id) {
+    toggleDelete(id) {
       this.deleteId = id
       this.deleteActive = !this.deleteActive
     },
-    toggleModal () {
+    toggleModal() {
       this.modalActive = !this.modalActive
       if (!this.modalActive) {
         this.clearModal()
       }
     },
-    clearModal () {
+    clearModal() {
       this.dataModal.id = null
       this.dataModal.name = ''
       this.dataModal.price = 0
@@ -118,7 +116,7 @@ export default {
       this.dataModal.idCategory = 0
       this.modalActive = false
     },
-    addProduct () {
+    addProduct() {
       const data = new FormData()
       data.append('name', this.dataModal.name)
       data.append('price', this.dataModal.price)
@@ -130,7 +128,7 @@ export default {
           this.getProducts()
         })
     },
-    updateProduct () {
+    updateProduct() {
       const data = new FormData()
       data.append('name', this.dataModal.name)
       data.append('price', this.dataModal.price)
@@ -146,7 +144,7 @@ export default {
           this.getProducts()
         })
     },
-    setUpdate (data) {
+    setUpdate(data) {
       this.modalActive = true
       this.dataModal.id = data.id
       this.dataModal.name = data.name
@@ -154,10 +152,10 @@ export default {
       this.dataModal.image = data.image
       this.dataModal.idCategory = data.idCategory
     },
-    handleEventModal () {
+    handleEventModal() {
       this.dataModal.id ? this.updateProduct() : this.addProduct()
     },
-    deleteProduct () {
+    deleteProduct() {
       this.deleteProducts(this.deleteId)
         .then(() => {
           this.deleteId = null
@@ -165,19 +163,19 @@ export default {
           alert('Delete berhasil')
         })
     },
-    setSearch (event) {
+    setSearch(event) {
       const url = `?search=${event.target.value}`
       this.getProducts(url)
     },
-    setSort (event) {
+    setSort(event) {
       const url = `?sort=${event.target.value}`
       this.getProducts(url)
     },
-    handlePage (number) {
+    handlePage(number) {
       const url = `?page=${number}`
       this.getProducts(url)
     },
-    checkActive (id) {
+    checkActive(id) {
       return this.getCart.find(item => {
         return item.id === id
       })
@@ -191,14 +189,14 @@ export default {
       getCart: 'getCart'
     })
   },
-  mounted () {
+  mounted() {
     this.getProducts()
   }
 }
 </script>
 
 <style scoped>
-.content{
+.content {
   height: 85vh;
   display: flex;
   flex-direction: column;

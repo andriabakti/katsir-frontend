@@ -1,10 +1,12 @@
 <template>
-  <div class="container-fluid p-0">
+  <div class="container-fluid">
     <div class="row no-gutters">
       <div class="col-lg-6 left">
         <div class="brand">
-          <span class="name" @click="toLanding">Cafetaria</span>
-          <span class="sub"><i>Online cafe shop for coffee, cakes & dishes</i></span>
+          <span class="name" @click="toLanding">Katsir</span>
+          <span class="sub">
+            <i>Online cafe shop for coffee, cakes & dishes</i>
+          </span>
         </div>
       </div>
       <div class="col-lg-6 main">
@@ -12,22 +14,43 @@
           <h3 class="title">Register</h3>
           <div class="form-group">
             <label for="email">Your email</label>
-            <input type="email" id="email" class="form-control" v-model="email" placeholder="Type here" required>
+            <input
+              type="email"
+              id="email"
+              class="form-control"
+              v-model="email"
+              placeholder="Type here"
+              required
+            />
           </div>
           <div class="form-group">
             <label for="password">Your password</label>
-            <input type="password" id="password" class="form-control" v-model="password" placeholder="Type here" required>
+            <input
+              type="password"
+              id="password"
+              class="form-control"
+              v-model="password"
+              placeholder="Type here"
+              required
+            />
           </div>
           <div class="form-group">
             <label for="username">Your username</label>
-            <input type="text" id="usename" class="form-control" v-model="username" placeholder="Type here" required>
+            <input
+              type="text"
+              id="usename"
+              class="form-control"
+              v-model="username"
+              placeholder="Type here"
+              required
+            />
           </div>
           <div class="submit">
             <button type="submit" class="btn" @click="handleRegister">Register</button>
             <span>Already have an account?</span>
             <div>
               <span>Login</span>
-              <span class="link" @click="toLogin"> "here"</span>
+              <span class="link" @click="toLogin">"here"</span>
             </div>
           </div>
         </form>
@@ -40,36 +63,37 @@
 import { mapActions } from 'vuex'
 
 export default {
-	// eslint-disable-next-line vue/multi-word-component-names
-	name: 'Register',
-	data: () => {
-		return {
-			email: '',
-			password: '',
-			username: ''
-		}
-	},
-	methods: {
-		...mapActions(['register']),
-		handleRegister (e) {
-			e.preventDefault()
-			const data = {
-				email: this.email,
-				password: this.password,
-				username: this.username
-			}
-			this.register(data)
-				.then(() => {
-					this.$router.push('/login')
-				})
-		},
-		toLogin () {
-			this.$router.push('/login')
-		},
-		toLanding () {
-			this.$router.push('/')
-		}
-	}
+  // eslint-disable-next-line vue/multi-word-component-names
+  name: 'Register',
+  data: () => {
+    return {
+      email: '',
+      password: '',
+      username: ''
+    }
+  },
+  methods: {
+    ...mapActions(['register']),
+    handleRegister(e) {
+      e.preventDefault()
+      const data = {
+        email: this.email,
+        password: this.password,
+        username: this.username,
+        role: 2
+      }
+      this.register(data)
+      // .then(() => {
+      //   this.$router.push('/login')
+      // })
+    },
+    toLogin() {
+      this.$router.push('/login')
+    },
+    toLanding() {
+      this.$router.push('/')
+    }
+  }
 }
 </script>
 
@@ -77,7 +101,7 @@ export default {
 /* Background */
 .row {
   height: 100vh;
-  background-image: url('../../../assets/images/bg.jpg');
+  background-image: url("../../../assets/images/bg.jpg");
   background-size: cover;
 }
 @media screen and (max-width: 1000px) {
@@ -100,7 +124,7 @@ export default {
 }
 @media screen and (max-width: 540px) {
   .left {
-    background-image: url('../../../assets/images/bg.jpg');
+    background-image: url("../../../assets/images/bg.jpg");
     background-size: cover;
   }
 }
