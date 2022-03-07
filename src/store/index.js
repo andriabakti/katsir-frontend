@@ -60,10 +60,10 @@ export default new Vuex.Store({
     },
   },
   actions: {
-    register(payload) {
+    register: (context, payload) => {
       return new Promise((resolve, reject) => {
         axios
-          .post(`${process.env.VUE_APP_BASE_URL}/api/v1/user/register`, payload)
+          .post(`${process.env.VUE_APP_BASE_URL}/user/register`, payload)
           .then((res) => {
             console.log(res);
             router.push("/login");
@@ -80,7 +80,7 @@ export default new Vuex.Store({
     login({ commit }, payload) {
       return new Promise((resolve, reject) => {
         axios
-          .post(`${process.env.VUE_APP_BASE_URL}/api/v1/user/login`, payload)
+          .post(`${process.env.VUE_APP_BASE_URL}/user/login`, payload)
           .then((res) => {
             console.log(res);
             commit("setUser", res.data.result);
@@ -137,7 +137,7 @@ export default new Vuex.Store({
     getProducts({ commit }, payload) {
       return new Promise((resolve, reject) => {
         axios
-          .get(`${process.env.VUE_APP_BASE_URL}/api/v1/product${payload || ""}`)
+          .get(`${process.env.VUE_APP_BASE_URL}/product${payload || ""}`)
           .then((res) => {
             console.log(res);
             commit("setProducts", res.data.result);
@@ -153,7 +153,7 @@ export default new Vuex.Store({
     insertProducts(context, payload) {
       return new Promise((resolve, reject) => {
         axios
-          .post(`${process.env.VUE_APP_BASE_URL}/api/v1/product`, payload)
+          .post(`${process.env.VUE_APP_BASE_URL}/product`, payload)
           .then((res) => {
             console.log(res);
             alert("Add product berhasil");
@@ -171,7 +171,7 @@ export default new Vuex.Store({
         console.log("ini update product");
         axios
           .patch(
-            `${process.env.VUE_APP_BASE_URL}/api/v1/product/${payload.id}`,
+            `${process.env.VUE_APP_BASE_URL}/product/${payload.id}`,
             payload.data
           )
           .then((res) => {
@@ -189,7 +189,7 @@ export default new Vuex.Store({
       return new Promise((resolve, reject) => {
         console.log("ini delete product" + payload);
         axios
-          .delete(`${process.env.VUE_APP_BASE_URL}/api/v1/product/${payload}`)
+          .delete(`${process.env.VUE_APP_BASE_URL}/product/${payload}`)
           .then((res) => {
             console.log(res);
             // alert('Delete product berhasil')
