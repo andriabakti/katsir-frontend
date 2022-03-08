@@ -8,9 +8,7 @@
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
-        <div class="modal-body">
-          Are you sure delete this product?
-        </div>
+        <div class="modal-body">Are you sure delete this product?</div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" @click="$emit('close-delete')">Cancel</button>
           <button type="button" class="btn btn-primary" @click="$emit('delete-event')">Yes</button>
@@ -23,13 +21,13 @@
 <script>
 export default {
   // eslint-disable-next-line vue/multi-word-component-names
-  name: 'DeleteModal',
+  name: "ModalDelete",
   props: {
     data: {
-      type: Object
-    }
-  }
-}
+      type: Object,
+    },
+  },
+};
 </script>
 
 <style scoped>

@@ -1,12 +1,25 @@
 <template>
   <div class="btn card">
-    <img :src="data.image" @click="$emit('toggle-event')" :class="active? 'active': ''">
+    <img
+      :src="data.image"
+      @click="$emit('toggle-event')"
+      :class="active ? 'active' : ''"
+    />
     <div class="text">
-      <h3>{{data.name}}</h3>
-      <p>Rp. {{new Intl.NumberFormat('de-DE', { maximumSignificantDigits: 3 }).format(data.price)}}</p>
+      <h3>{{ data.name }}</h3>
+      <p>
+        Rp.
+        {{
+          new Intl.NumberFormat("de-DE", { maximumSignificantDigits: 3 }).format(
+            data.price
+          )
+        }}
+      </p>
       <div>
         <button class="btn btn-active" @click="$emit('event-update', data)">Edit</button>
-        <button class="btn btn-warning" @click="$emit('toggle-delete', data.id)">Delete</button>
+        <button class="btn btn-warning" @click="$emit('toggle-delete', data.id)">
+          Delete
+        </button>
       </div>
     </div>
   </div>
@@ -14,21 +27,20 @@
 
 <script>
 export default {
-  // eslint-disable-next-line vue/multi-word-component-names
-  name: 'Card',
+  name: "CardProduct",
   props: {
     data: {
-      type: Object
+      type: Object,
     },
     active: {
-      type: Boolean
-    }
-  }
-}
+      type: Boolean,
+    },
+  },
+};
 </script>
 
 <style scoped>
-.card{
+.card {
   height: 260px;
   text-align: left;
   display: flex;
@@ -40,21 +52,21 @@ export default {
   border: 0;
   background: none;
 }
-.card img{
+.card img {
   height: 165px;
   width: 210px;
   border-radius: 10px 10px 0 0;
   cursor: pointer;
 }
-.text{
+.text {
   width: 200px;
 }
-.text h3{
+.text h3 {
   font-size: 22px;
   font-weight: normal;
   margin: 5px 0 0 0;
 }
-.text p{
+.text p {
   font-size: 22px;
   font-weight: bold;
   margin: 0;
@@ -62,7 +74,7 @@ export default {
 
 .active {
   filter: brightness(50%);
-  /* filter: url('../../assets/images/tick.png'); */
+  /* filter: url('../../assets/icons/IconTick.png'); */
   /* background-origin: ; */
 }
 </style>

@@ -60,48 +60,55 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex'
+import { mapActions } from "vuex";
 
 export default {
-  // eslint-disable-next-line vue/multi-word-component-names
-  name: 'Register',
+  metaInfo: {
+    title: "Register",
+    titleTemplate: "%s - Katsir",
+    htmlAttrs: {
+      lang: "en",
+      amp: true,
+    },
+  },
+  name: "PageRegister",
   data: () => {
     return {
-      email: '',
-      password: '',
-      username: ''
-    }
+      email: "",
+      password: "",
+      username: "",
+    };
   },
   methods: {
-    ...mapActions(['register']),
+    ...mapActions(["register"]),
     handleRegister(e) {
-      e.preventDefault()
+      e.preventDefault();
       const data = {
         email: this.email,
         password: this.password,
         username: this.username,
-        role: 2
-      }
-      this.register(data)
+        role: 2,
+      };
+      this.register(data);
       // .then(() => {
       //   this.$router.push('/login')
       // })
     },
     toLogin() {
-      this.$router.push('/login')
+      this.$router.push("/login");
     },
     toLanding() {
-      this.$router.push('/')
-    }
-  }
-}
+      this.$router.push("/");
+    },
+  },
+};
 </script>
 
 <style scoped>
 /* Background */
 .row {
   height: 100vh;
-  background-image: url("../../../assets/images/bg.jpg");
+  background-image: url("../../../assets/images/BgAuth.jpg");
   background-size: cover;
 }
 @media screen and (max-width: 1000px) {
@@ -124,7 +131,7 @@ export default {
 }
 @media screen and (max-width: 540px) {
   .left {
-    background-image: url("../../../assets/images/bg.jpg");
+    background-image: url("../../../assets/images/BgAuth.jpg");
     background-size: cover;
   }
 }

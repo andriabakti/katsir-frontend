@@ -49,45 +49,52 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex'
+import { mapActions } from "vuex";
 
 export default {
-  // eslint-disable-next-line vue/multi-word-component-names
-  name: 'Login',
+  metaInfo: {
+    title: "Login",
+    titleTemplate: "%s - Katsir",
+    htmlAttrs: {
+      lang: "en",
+      amp: true,
+    },
+  },
+  name: "PageLogin",
   data: () => {
     return {
-      email: '',
-      password: ''
-    }
+      email: "",
+      password: "",
+    };
   },
   methods: {
-    ...mapActions(['login']),
+    ...mapActions(["login"]),
     handleLogin(e) {
-      e.preventDefault()
+      e.preventDefault();
       const data = {
         email: this.email,
-        password: this.password
-      }
-      this.login(data)
+        password: this.password,
+      };
+      this.login(data);
       // .then(() => {
       //   this.$router.push('/home')
       // })
     },
     toRegister() {
-      this.$router.push('/register')
+      this.$router.push("/register");
     },
     toLanding() {
-      this.$router.push('/')
-    }
-  }
-}
+      this.$router.push("/");
+    },
+  },
+};
 </script>
 
 <style scoped>
 /* Background */
 .row {
   height: 100vh;
-  background-image: url("../../../assets/images/bg.jpg");
+  background-image: url("../../../assets/images/BgAuth.jpg");
   background-size: cover;
 }
 @media screen and (max-width: 960px) {
@@ -110,7 +117,7 @@ export default {
 }
 @media screen and (max-width: 540px) {
   .left {
-    background-image: url("../../../assets/images/bg.jpg");
+    background-image: url("../../../assets/images/BgAuth.jpg");
     background-size: cover;
   }
 }

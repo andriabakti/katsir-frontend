@@ -18,24 +18,31 @@
 
 <script>
 export default {
-  // eslint-disable-next-line vue/multi-word-component-names
-  name: 'Landing',
+  metaInfo: {
+    title: "Landing",
+    titleTemplate: "%s - Katsir",
+    htmlAttrs: {
+      lang: "en",
+      amp: true,
+    },
+  },
+  name: "PageLanding",
   methods: {
     toLogin() {
-      this.$router.push('/login')
+      this.$router.push("/login");
     },
     toRegister() {
-      this.$router.push('/register')
-    }
-  }
-}
+      this.$router.push("/register");
+    },
+  },
+};
 </script>
 
 <style scoped>
 /* Background */
 .row {
   height: 100vh;
-  background-image: url("../../assets/images/bg.jpg");
+  background-image: url("../../assets/images/BgAuth.jpg");
   background-size: cover;
 }
 
