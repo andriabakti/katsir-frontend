@@ -14,16 +14,16 @@
 <script>
 export default {
   // eslint-disable-next-line vue/multi-word-component-names
-  name: 'Sidebar',
+  name: "BaseMenu",
   methods: {
-    toHome () {
-      this.$router.push('/home')
+    toHome() {
+      this.$router.push("/home");
     },
-    toHistory () {
-      alert('Halaman history belum tersedia')
-    }
-  }
-}
+    toHistory() {
+      alert("Halaman history belum tersedia");
+    },
+  },
+};
 </script>
 
 <style scoped>
@@ -55,15 +55,15 @@ button {
   border: none;
 }
 #product {
-  background-image: url("../assets/images/fork.png");
+  background-image: url("../assets/icons/IconFood.svg");
 }
 #history {
-  background-image: url("../assets/images/clip.png");
+  background-image: url("../assets/icons/IconReport.svg");
 }
 #addition {
-  background-image: url("../assets/images/add.png");
+  background-image: url("../assets/icons/IconAdd.svg");
 }
 #exit {
-  background-image: url("../assets/images/exit.png");
+  background-image: url("../assets/icons/IconExit.png");
 }
 </style>

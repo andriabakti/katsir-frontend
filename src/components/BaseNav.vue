@@ -7,39 +7,36 @@
     </div>
     <div class="cart-bar col-lg-4">
       <h3>Cart</h3>
-      <p class="badge">{{countCart}}</p>
+      <p class="badge">{{ countCart }}</p>
     </div>
   </div>
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex'
+import { mapActions, mapGetters } from "vuex";
 
 export default {
-  // eslint-disable-next-line vue/multi-word-component-names
-  name: 'Navbar',
+  name: "BaseNav",
   methods: {
-    ...mapActions([
-      'getProducts'
-    ]),
-    toProduct () {
-      this.$router.push('/product')
+    ...mapActions(["getProducts"]),
+    toProduct() {
+      this.$router.push("/product");
     },
-    setSearch (e) {
-      const url = `?search=${e.target.value}`
-      this.getProducts(url)
-    }
+    setSearch(e) {
+      const url = `?search=${e.target.value}`;
+      this.getProducts(url);
+    },
   },
   computed: {
     ...mapGetters({
-      products: 'products',
-      countCart: 'countCart'
-    })
+      products: "products",
+      countCart: "countCart",
+    }),
   },
-  mounted () {
-    this.getProducts()
-  }
-}
+  mounted() {
+    this.getProducts();
+  },
+};
 </script>
 
 <style scoped>
@@ -66,7 +63,7 @@ button {
   margin-left: 13px;
   height: 60px;
   width: 60px;
-  background-image: url("../../assets/images/menu.png");
+  background-image: url("../assets/icons/IconMenu.svg");
 }
 .title-bar h3 {
   font-size: 30px;
@@ -77,7 +74,7 @@ button {
   margin-right: 5px;
   height: 60px;
   width: 60px;
-  background-image: url('../../assets/images/search.png');
+  background-image: url("../assets/icons/IconSearch.svg");
 }
 
 .cart-bar {
@@ -98,7 +95,7 @@ button {
   height: 30px;
   width: 30px;
   border-radius: 100%;
-  background: #57CAD5;
+  background: #57cad5;
   text-align: center;
   font-size: 22px;
   font-weight: bold;

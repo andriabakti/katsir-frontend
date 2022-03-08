@@ -1,40 +1,42 @@
-import Vue from "vue";
-import VueRouter from "vue-router";
-import Landing from "../views/Landing/Landing.vue";
-import Login from "../views/Auth/Login/Login.vue";
-import Register from "../views/Auth/Register/Register.vue";
-import Home from "../views/Main/Home/Home.vue";
+import Vue from 'vue'
+import Router from 'vue-router'
+import Meta from 'vue-meta'
+import Landing from '../views/Landing/Landing.vue'
+import Login from '../views/Auth/Login/Login.vue'
+import Register from '../views/Auth/Register/Register.vue'
+import Home from '../views/Main/Home/Home.vue'
 // import History from '../views/Main/History/History.vue'
 // import Product from '../views/Main/Product/Product.vue'
-import store from "../store/index";
+import store from '../store/index'
 
-Vue.use(VueRouter);
+Vue.use(Router)
+Vue.use(Meta)
 
 const routes = [
   {
-    path: "/",
-    name: "Landing",
+    path: '/',
+    name: 'Landing',
     component: Landing,
-    meta: { requiresVisitor: true },
+    meta: { requiresVisitor: true }
   },
   {
-    path: "/register",
-    name: "Register",
+    path: '/register',
+    name: 'Register',
     component: Register,
-    meta: { requiresVisitor: true },
+    meta: { requiresVisitor: true }
   },
   {
-    path: "/login",
-    name: "Login",
+    path: '/login',
+    name: 'Login',
     component: Login,
-    meta: { requiresVisitor: true },
+    meta: { requiresVisitor: true }
   },
   {
-    path: "/home",
-    name: "Home",
+    path: '/home',
+    name: 'Home',
     component: Home,
-    meta: { requiresAuth: false },
-  },
+    meta: { requiresAuth: false }
+  }
   // {
   //   path: '/history',
   //   name: 'History',
@@ -47,34 +49,34 @@ const routes = [
   //   component: Product,
   //   meta: { requiresAuth: true }
   // }
-];
+]
 
-const router = new VueRouter({
-  mode: "history",
+const router = new Router({
+  mode: 'history',
   base: process.env.BASE_URL,
-  routes,
-});
+  routes
+})
 
 router.beforeEach((to, from, next) => {
   if (to.matched.some((record) => record.meta.requiresAuth)) {
     if (!store.getters.isLogin) {
       next({
-        path: "/login",
-      });
+        path: '/login'
+      })
     } else {
-      next();
+      next()
     }
   } else if (to.matched.some((record) => record.meta.requiresVisitor)) {
     if (store.getters.isLogin) {
       next({
-        path: "/home",
-      });
+        path: '/home'
+      })
     } else {
-      next();
+      next()
     }
   } else {
-    next();
+    next()
   }
-});
+})
 
-export default router;
+export default router

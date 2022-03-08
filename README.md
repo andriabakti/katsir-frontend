@@ -1,66 +1,64 @@
+<h1 align="center">Katsir - Web</h1>
 <p align="center">
-  <h1 align="center">Katsir Web</h1>
-  <p align="center">
-    <br />
-    <a href="https://github.com/andriabakti/katsir-frontend"><strong>Explore the docs »</strong></a>
-    <br />
-    <br />
-    <a href="http://andria-katsir.netlify.app/">View Demo</a>
-    ·
-    <a href="https://github.com/andriabakti/katsir-frontend/issues">Report Bug</a>
-    ·
-    <a href="https://github.com/andriabakti/katsir-frontend/issues">Request Feature</a>
-  </p>
+  <br/>
+  <a href="https://github.com/andriabakti/katsir-frontend">
+    <strong>Explore the Docs</strong>
+  </a>
+  <br/>
+  <br/>
+  <a href="http://andria-katsir.netlify.app/">See Demo</a>
+  ·
+  <a href="https://github.com/andriabakti/katsir-frontend/issues">Report Bug</a>
+  ·
+  <a href="https://github.com/andriabakti/katsir-frontend/issues">Request Feature</a>
 </p>
-
-<!-- TABLE OF CONTENTS -->
 
 ## Table of Contents
 
 - [Table of Contents](#table-of-contents)
-- [About The Project](#about-the-project)
-  - [Built With](#built-with)
-- [Getting Started](#getting-started)
+- [Introduction](#introduction)
+- [Setup for Development](#setup-for-development)
+  - [Requirements](#requirements)
   - [Installation](#installation)
 - [Screenshots](#screenshots)
 - [Related Project](#related-project)
 - [Contact](#contact)
 
-<!-- ABOUT THE PROJECT -->
+## Introduction
 
-## About The Project
+<b>Katsir</b> is a web-based POS (Point of Sales) application for cashier in café or shop to serve, process customer's order. Featured with products management (adding new product, updating & deleting existed product) that can be accessed by admin user. This app is built with:
 
-Katsir is a web-basic application for customers in cafe or shop to order the products easily and personally
+- [Vue.js](https://v2.vuejs.org/)
+- [Bootstrap](https://getbootstrap.com/)
 
-### Built With
+## Setup for Development
 
-- [VueJS](http://vuejs.org/)
+### Requirements
 
-<!-- GETTING STARTED -->
-
-## Getting Started
+- [Node.js](https://nodejs.org/en/)
+- [Katsir: API (Back-end)](https://github.com/andriabakti/katsir-backend)
 
 ### Installation
 
-1. Clone repository
+1. Clone the repository
 
 ```sh
 git clone https://github.com/andriabakti/katsir-frontend.git
 ```
 
-2. Install NPM packages
+2. Install package dependencies
 
 ```sh
 npm install
 ```
 
-3. Add .env file at root folder project, and add following
+3. Create .env file in your product's root folder & set the variable below
 
 ```sh
-VUE_APP_BASE_URL = http://localhost:3939/api/v1
+VUE_APP_BASE_URL = 'your_backend_API_base_URL'
 ```
 
-4. Compiles and hot-reloads for development
+4. Make sure you already run the [Back-end](https://github.com/andriabakti/katsir-backend) first, then run this app locally
 
 ```sh
 npm run serve
@@ -72,10 +70,10 @@ npm run serve
 
 <p align='center'>
   <span>
-      <image width="200" src='./previews/landing.png' />
-      <image width="200" src='./previews/register.png' />
-      <image width="200" src='./previews/login.png' />
-      <image width="200" src='./previews/home.png' />
+    <image width="200" src='./previews/landing.png' />
+    <image width="200" src='./previews/auth_register.png' />
+    <image width="200" src='./previews/auth_login.png' />
+    <image width="200" src='./previews/home.png' />
   </span>
 </p>
 
@@ -87,4 +85,4 @@ npm run serve
 
 ## Contact
 
-My Email : andr.bkti@gmail.com
+Email : andr.bkti@gmail.com
