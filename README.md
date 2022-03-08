@@ -26,7 +26,7 @@
 
 ## Introduction
 
-<b>Katsir</b> is a web-based POS (Point of Sales) application for cashier in café or shop to serve, process customer's order. Featured with products management (adding new product, updating & deleting existed product) that can be accessed by admin user. This app is built with:
+<b>Katsir</b> is a web-based POS (Point of Sales) application for cashier in café or shop to serves and processes orders from customer. Featured with products management (adding new product, updating & deleting existed product) that can be accessed by admin user. <b>This app is built with:</b>
 
 - [Vue.js](https://v2.vuejs.org/)
 - [Bootstrap](https://getbootstrap.com/)
