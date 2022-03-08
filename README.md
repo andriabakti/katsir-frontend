@@ -26,16 +26,16 @@
 
 ## Introduction
 
-<b>Katsir</b> is a web-based POS (Point of Sales) application for cashier in café or shop to serves and processes orders from customer. Featured with products management (adding new product, updating & deleting existed product) that can be accessed by admin user. <b>This app is built with:</b>
+<b>Katsir</b> is a web-based POS (Point of Sales) application for cashier café or shop to serves and processes orders from the customer easily. Featured with product management (adding new product, updating & deleting existed product) that can be accessed by admin user. <b>This app is built with:</b>
 
-- [Vue.js](https://v2.vuejs.org/)
+- [Vue.js (v2)](https://v2.vuejs.org/)
 - [Bootstrap](https://getbootstrap.com/)
 
 ## Setup for Development
 
 ### Requirements
 
-- [Node.js](https://nodejs.org/en/)
+- [Node.js](https://nodejs.org/en/download/)
 - [Katsir: API (Back-end)](https://github.com/andriabakti/katsir-backend)
 
 ### Installation
@@ -64,8 +64,6 @@ VUE_APP_BASE_URL = 'your_backend_API_base_URL'
 npm run serve
 ```
 
-<!-- ROADMAP -->
-
 ## Screenshots
 
 <p align='center'>
@@ -80,8 +78,6 @@ npm run serve
 ## Related Project
 
 - [Katsir: Back-end](https://github.com/andriabakti/katsir-backend)
-
-<!-- CONTACT -->
 
 ## Contact
 
