@@ -1,10 +1,12 @@
 <template>
   <div class="container-fluid">
-    <BaseNav />
-    <div class="body row">
-      <BaseMenu @toggle-active="toggleModal" @toggle-exit="toggleExit" />
-      <div class="content col-md-7">
-        <!-- <div class="upper">
+    <div class="row">
+      <div class="side-left">
+        <BaseHeader />
+        <div class="body row">
+          <BaseNavbar @toggle-active="toggleModal" @toggle-exit="toggleExit" />
+          <div class="content">
+            <!-- <div class="upper">
           <div class="form-group">
             <select id="sort" class="form-control" @change="setSort">
               <option selected>Sort by</option>
@@ -16,20 +18,22 @@
           <div class="form-group">
             <input type="text" class="form-control" placeholder="Search" @keyup="setSearch">
           </div>
-        </div>-->
-        <div class="lower">
-          <CardProduct
-            v-for="item in products"
-            :key="item.id"
-            :data="item"
-            @toggle-event="addCart(item)"
-            :active="checkActive(item.id)"
-            @event-update="setUpdate(item)"
-            @select-product="addCart(item)"
-            @toggle-delete="toggleDelete"
-          />
+            </div>-->
+            <div class="lower">
+              <div class="card-box col-4" v-for="item in products" :key="item.id">
+                <CardProduct
+                  :data="item"
+                  @toggle-event="addToCart(item)"
+                  :active="checkActive(item.id)"
+                  @event-update="setUpdate(item)"
+                  @select-product="addToCart(item)"
+                  @toggle-delete="toggleDelete"
+                />
+              </div>
+            </div>
+            <!-- <CardPagination :data="pagination" @page-event="handlePage" /> -->
+          </div>
         </div>
-        <!-- <CardPagination :data="pagination" @page-event="handlePage" /> -->
       </div>
       <SideCart />
     </div>
@@ -50,14 +54,16 @@
 </template>
 
 <script>
-import BaseNav from "../../../components/BaseNav";
-import BaseMenu from "../../../components/BaseMenu";
+// component: module
+import BaseHeader from "../../../components/BaseHeader";
+import BaseNavbar from "../../../components/BaseNavbar";
 import CardProduct from "../../../components/Home/CardProduct";
 import SideCart from "../../../components/Home/SideCart";
 import ModalAdd from "../../../components/Home/ModalAdd";
 import ModalExit from "../../../components/ModalExit";
 import ModalDelete from "../../../components/ModalDelete";
 // import CardPagination from '../../../components/Home/CardPagination'
+// package: vuex
 import { mapActions, mapGetters, mapMutations } from "vuex";
 
 export default {
@@ -71,8 +77,8 @@ export default {
   },
   name: "PageHome",
   components: {
-    BaseNav,
-    BaseMenu,
+    BaseHeader,
+    BaseNavbar,
     CardProduct,
     SideCart,
     // CardPagination,
@@ -92,18 +98,18 @@ export default {
       name: "",
       price: 0,
       image: null,
-      idCategory: 0,
+      category_id: 0,
     },
   }),
   methods: {
     ...mapActions([
       "login",
-      "getProducts",
-      "insertProducts",
-      "editProducts",
-      "deleteProducts",
+      "getProduct",
+      "insertProduct",
+      "editProduct",
+      "deleteProduct",
     ]),
-    ...mapMutations(["addCart"]),
+    ...mapMutations(["addToCart"]),
     toggleExit() {
       this.exitActive = !this.exitActive;
     },
@@ -122,7 +128,7 @@ export default {
       this.dataModal.name = "";
       this.dataModal.price = 0;
       this.dataModal.image = null;
-      this.dataModal.idCategory = 0;
+      this.dataModal.category_id = 0;
       this.modalActive = false;
     },
     addProduct() {
@@ -130,10 +136,10 @@ export default {
       data.append("name", this.dataModal.name);
       data.append("price", this.dataModal.price);
       data.append("image", this.dataModal.image);
-      data.append("idCategory", this.dataModal.idCategory);
-      this.insertProducts(data).then(() => {
+      data.append("category_id", this.dataModal.category_id);
+      this.insertProduct(data).then(() => {
         this.clearModal();
-        this.getProducts();
+        this.getProduct();
       });
     },
     updateProduct() {
@@ -141,14 +147,14 @@ export default {
       data.append("name", this.dataModal.name);
       data.append("price", this.dataModal.price);
       data.append("image", this.dataModal.image);
-      data.append("idCategory", this.dataModal.idCategory);
+      data.append("category_id", this.dataModal.category_id);
       const container = {
         id: this.dataModal.id,
         data: data,
       };
-      this.editProducts(container).then(() => {
+      this.editProduct(container).then(() => {
         this.clearModal();
-        this.getProducts();
+        this.getProduct();
       });
     },
     setUpdate(data) {
@@ -157,29 +163,29 @@ export default {
       this.dataModal.name = data.name;
       this.dataModal.price = data.price;
       this.dataModal.image = data.image;
-      this.dataModal.idCategory = data.idCategory;
+      this.dataModal.category_id = data.category_id;
     },
     handleEventModal() {
       this.dataModal.id ? this.updateProduct() : this.addProduct();
     },
     deleteProduct() {
-      this.deleteProducts(this.deleteId).then(() => {
+      this.deleteProduct(this.deleteId).then(() => {
         this.deleteId = null;
-        this.getProducts();
+        this.getProduct();
         alert("Delete berhasil");
       });
     },
-    setSearch(event) {
-      const url = `?search=${event.target.value}`;
-      this.getProducts(url);
+    setSearch(e) {
+      const url = `?search=${e.target.value}`;
+      this.getProduct(url);
     },
-    setSort(event) {
-      const url = `?sort=${event.target.value}`;
-      this.getProducts(url);
+    setSort(e) {
+      const url = `?sort=${e.target.value}`;
+      this.getProduct(url);
     },
     handlePage(number) {
       const url = `?page=${number}`;
-      this.getProducts(url);
+      this.getProduct(url);
     },
     checkActive(id) {
       return this.getCart.find((item) => {
@@ -196,14 +202,19 @@ export default {
     }),
   },
   mounted() {
-    this.getProducts();
+    this.getProduct();
   },
 };
 </script>
 
 <style scoped>
+.side-left {
+  width: 70%;
+}
 .content {
-  height: 85vh;
+  width: calc(100% - 80px);
+  padding: 0;
+  height: 100vh;
   display: flex;
   flex-direction: column;
   background-color: rgba(190, 195, 202, 0.3);
@@ -220,8 +231,15 @@ export default {
 .lower {
   display: flex;
   flex-wrap: wrap;
-  align-items: flex-start;
-  justify-content: space-evenly;
+  justify-content: flex-start;
+  /* align-items: flex-start; */
   padding-bottom: 50px;
+  background-color: tan;
+}
+
+.card-box {
+  display: flex;
+  justify-content: center;
+  background-color: teal;
 }
 </style>

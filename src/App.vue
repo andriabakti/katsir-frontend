@@ -5,15 +5,13 @@
 </template>
 
 <script>
-import { mapActions } from "vuex";
+import { interceptorsRequest, interceptorsResponse } from "./utils/axios";
+
 export default {
   name: "App",
-  methods: {
-    ...mapActions(["interceptorsRequest", "interceptorsResponse"]),
-  },
   created() {
-    this.interceptorsRequest();
-    this.interceptorsResponse();
+    interceptorsRequest();
+    interceptorsResponse();
   },
 };
 </script>

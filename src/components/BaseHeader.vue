@@ -1,13 +1,9 @@
 <template>
   <div class="row">
-    <div class="title-bar col-lg-8">
+    <div class="title-bar">
       <button class="btn" id="menu"></button>
       <h3>Food Items</h3>
       <button class="btn" id="search"></button>
-    </div>
-    <div class="cart-bar col-lg-4">
-      <h3>Cart</h3>
-      <p class="badge">{{ countCart }}</p>
     </div>
   </div>
 </template>
@@ -16,15 +12,15 @@
 import { mapActions, mapGetters } from "vuex";
 
 export default {
-  name: "BaseNav",
+  name: "BaseHeader",
   methods: {
-    ...mapActions(["getProducts"]),
+    ...mapActions(["getProduct"]),
     toProduct() {
       this.$router.push("/product");
     },
     setSearch(e) {
       const url = `?search=${e.target.value}`;
-      this.getProducts(url);
+      this.getProduct(url);
     },
   },
   computed: {
@@ -34,20 +30,24 @@ export default {
     }),
   },
   mounted() {
-    this.getProducts();
+    this.getProduct();
   },
 };
 </script>
 
 <style scoped>
 .row {
-  height: 15vh;
+  height: 80px;
+  position: sticky;
+  top: 0;
+  z-index: 3;
 }
 .title-bar {
   /* height: 90px; */
+  width: 100%;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  /* justify-content: space-between; */
   background-color: #ffffff;
   border-bottom: 1px solid rgb(0, 0, 0, 0.25);
   box-shadow: 0 4px 3px rgb(0, 0, 0, 0.25);
@@ -60,7 +60,7 @@ button {
   border: none;
 }
 #menu {
-  margin-left: 13px;
+  /* margin-left: 13px; */
   height: 60px;
   width: 60px;
   background-image: url("../assets/icons/IconMenu.svg");
@@ -69,38 +69,13 @@ button {
   font-size: 30px;
   font-weight: bold;
   margin-top: 5px;
+  margin-left: auto;
 }
 #search {
-  margin-right: 5px;
+  margin-left: auto;
+  /* margin-right: auto; */
   height: 60px;
   width: 60px;
   background-image: url("../assets/icons/IconSearch.svg");
-}
-
-.cart-bar {
-  /* height: 90px; */
-  margin-top: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-bottom: 1px solid rgb(0, 0, 0, 0.25);
-  box-shadow: 0 4px 0px rgb(0, 0, 0, 0.25);
-}
-.cart-bar h3 {
-  font-size: 25px;
-  font-weight: bold;
-  margin-top: 10px;
-}
-.cart-bar p {
-  height: 30px;
-  width: 30px;
-  border-radius: 100%;
-  background: #57cad5;
-  text-align: center;
-  font-size: 22px;
-  font-weight: bold;
-  color: #ffffff;
-  margin-top: 17px;
-  margin-left: 5px;
 }
 </style>

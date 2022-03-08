@@ -1,27 +1,28 @@
-import axios from 'axios'
+// module: axios-util
+import { apiInstance } from '../utils/axios'
 
 export const storeProduct = {
   state: () => ({
     products: [],
-    paginations: null
+    pages: null
   }),
   mutations: {
-    setProducts(state, payload) {
+    setProduct: (state, payload) => {
       state.products = payload
     },
-    setPaginations(state, payload) {
-      state.paginations = payload
+    setPagination: (state, payload) => {
+      state.pages = payload
     }
   },
   actions: {
-    getProducts({ commit }, payload) {
+    getProduct: ({ commit }, payload) => {
       return new Promise((resolve, reject) => {
-        axios
-          .get(`${process.env.VUE_APP_BASE_URL}/product${payload || ''}`)
+        apiInstance
+          .get(`/product${payload || ''}`)
           .then((res) => {
             console.log(res)
-            commit('setProducts', res.data.result)
-            commit('setPaginations', res.data.paginations)
+            commit('setProduct', res.data.result)
+            commit('setPagination', res.data.page_info)
             resolve(res.data.result)
           })
           .catch((err) => {
@@ -30,10 +31,10 @@ export const storeProduct = {
           })
       })
     },
-    insertProducts(context, payload) {
+    insertProduct: (context, payload) => {
       return new Promise((resolve, reject) => {
-        axios
-          .post(`${process.env.VUE_APP_BASE_URL}/product`, payload)
+        apiInstance
+          .post(`/product`, payload)
           .then((res) => {
             console.log(res)
             alert('Add product berhasil')
@@ -46,14 +47,11 @@ export const storeProduct = {
           })
       })
     },
-    editProducts(context, payload) {
+    editProduct: (context, payload) => {
       return new Promise((resolve, reject) => {
         console.log('ini update product')
-        axios
-          .patch(
-            `${process.env.VUE_APP_BASE_URL}/product/${payload.id}`,
-            payload.data
-          )
+        apiInstance
+          .patch(`/product/${payload.id}`, payload.data)
           .then((res) => {
             console.log(res)
             alert('Edit product berhasil')
@@ -65,11 +63,11 @@ export const storeProduct = {
           })
       })
     },
-    deleteProducts(context, payload) {
+    deleteProduct: (context, payload) => {
       return new Promise((resolve, reject) => {
         console.log('ini delete product' + payload)
-        axios
-          .delete(`${process.env.VUE_APP_BASE_URL}/product/${payload}`)
+        apiInstance
+          .delete(`/product/${payload}`)
           .then((res) => {
             console.log(res)
             // alert('Delete product berhasil')
@@ -83,11 +81,11 @@ export const storeProduct = {
     }
   },
   getters: {
-    products(state) {
+    products: (state) => {
       return state.products
     },
-    getPage(state) {
-      return state.paginations
+    getPage: (state) => {
+      return state.pages
     }
   }
 }

@@ -1,5 +1,5 @@
 <template>
-  <nav class="side col-lg-1">
+  <nav class="side">
     <div class="up">
       <button class="btn" id="product" @click="toHome"></button>
       <button class="btn" id="history" @click="toHistory"></button>
@@ -13,8 +13,7 @@
 
 <script>
 export default {
-  // eslint-disable-next-line vue/multi-word-component-names
-  name: "BaseMenu",
+  name: "BaseNavbar",
   methods: {
     toHome() {
       this.$router.push("/home");
@@ -28,7 +27,8 @@ export default {
 
 <style scoped>
 .side {
-  height: 85vh;
+  width: 80px;
+  height: auto;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -43,6 +43,8 @@ export default {
 }
 .down {
   margin-bottom: 20px;
+  position: sticky;
+  bottom: 20px;
 }
 button {
   height: 60px;

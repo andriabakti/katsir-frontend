@@ -3,7 +3,7 @@ export const storeCart = {
     carts: []
   }),
   mutations: {
-    addCart(state, payload) {
+    addToCart: (state, payload) => {
       const isCart = state.carts.find((item) => {
         return item.id === payload.id
       })
@@ -19,10 +19,10 @@ export const storeCart = {
     }
   },
   getters: {
-    getCart(state) {
+    getCart: (state) => {
       return state.carts
     },
-    countCart(state) {
+    countCart: (state) => {
       return state.carts.length
     }
   }

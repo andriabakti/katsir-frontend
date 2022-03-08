@@ -1,5 +1,11 @@
 <template>
-  <div class="cart col-md-4">
+  <div class="cart">
+    <div class="cart-bar">
+      <h3>Cart</h3>
+      <!-- <div> -->
+      <span class="badge">{{ countCart }}</span>
+      <!-- </div> -->
+    </div>
     <div class="empty" v-if="countCart == 0">
       <img src="../../assets/images/ImgEmpty.png" />
       <h3>Your cart is empty</h3>
@@ -20,11 +26,7 @@
             </div>
             <h5>
               Rp.
-              {{
-                new Intl.NumberFormat("de-DE", { maximumSignificantDigits: 3 }).format(
-                  item.price
-                )
-              }}
+              {{ formatPrice(item.price) }}
             </h5>
           </div>
         </div>
@@ -34,13 +36,16 @@
 </template>
 
 <script>
+// package: vuex
 import { mapGetters } from "vuex";
+// module: util-numeral
+import { formatPrice } from "../../utils/numeral";
 
 export default {
   name: "SideCart",
-  data: () => {
-    return {};
-  },
+  data: () => ({
+    formatPrice: formatPrice,
+  }),
   computed: {
     ...mapGetters(["getCart", "countCart"]),
   },
@@ -49,13 +54,52 @@ export default {
 
 <style scoped>
 .cart {
+  padding: 0;
+  width: 30%;
   height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
+  background-color: cornflowerblue;
   /* border-left: 1px solid #CECECE; */
   /* overflow: auto; */
 }
+
+.cart-bar {
+  width: 100%;
+  height: 80px;
+  background-color: crimson;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-bottom: 1px solid rgb(0, 0, 0, 0.25);
+  box-shadow: 0 4px 0px rgb(0, 0, 0, 0.25);
+  position: sticky;
+  top: 0;
+  z-index: 3;
+}
+.cart-bar h3 {
+  font-size: 25px;
+  font-weight: bold;
+  margin-top: 10px;
+}
+.badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  height: 30px;
+  width: 30px;
+  border-radius: 100%;
+  background: #57cad5;
+  font-size: 22px;
+  font-weight: bold;
+  color: #ffffff;
+  margin-top: 17px;
+  margin-left: 5px;
+}
+
 .card {
   position: absolute;
   width: 100%;
@@ -72,7 +116,7 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 30px;
+  margin-top: 50px;
 }
 .empty img {
   width: 150px;
