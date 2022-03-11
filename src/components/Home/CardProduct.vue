@@ -1,21 +1,16 @@
 <template>
   <div class="btn card">
-    <img
-      :src="data.image"
-      @click="$emit('toggle-event')"
-      :class="active ? 'active' : ''"
-    />
+    <div class="img">
+      <img
+        :src="data.image"
+        @click="$emit('toggle-event')"
+        :class="active ? 'active' : ''"
+      />
+    </div>
     <div class="text">
       <h3>{{ data.name }}</h3>
-      <p>
-        Rp.
-        {{
-          new Intl.NumberFormat("de-DE", { maximumSignificantDigits: 3 }).format(
-            data.price
-          )
-        }}
-      </p>
-      <div>
+      <p>Rp. {{ formatPrice(data.price) }}</p>
+      <div v-if="user.role === 'admin'">
         <button class="btn btn-active" @click="$emit('event-update', data)">Edit</button>
         <button class="btn btn-warning" @click="$emit('toggle-delete', data.id)">
           Delete
@@ -26,8 +21,16 @@
 </template>
 
 <script>
+// package: vuex
+import { mapGetters } from "vuex";
+// module: util-numeral
+import { formatPrice } from "@/utils/numeral";
+
 export default {
   name: "CardProduct",
+  data: () => ({
+    formatPrice: formatPrice,
+  }),
   props: {
     data: {
       type: Object,
@@ -36,12 +39,17 @@ export default {
       type: Boolean,
     },
   },
+  computed: {
+    ...mapGetters({
+      user: "getterUser",
+    }),
+  },
 };
 </script>
 
 <style scoped>
 .card {
-  height: 260px;
+  height: 240px;
   text-align: left;
   display: flex;
   flex-direction: column;
@@ -51,12 +59,18 @@ export default {
   border-radius: 10px 10px 0 0;
   border: 0;
   background: none;
+  /* font-family: "Montserrat", sans-serif !important; */
 }
-.card img {
-  height: 165px;
-  width: 210px;
-  border-radius: 10px 10px 0 0;
+.img {
+  width: 250px;
+  min-height: 165px;
   cursor: pointer;
+}
+.img > img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 10px 10px 0 0;
 }
 .text {
   width: 200px;
@@ -74,7 +88,7 @@ export default {
 
 .active {
   filter: brightness(50%);
-  /* filter: url('../../assets/icons/IconTick.png'); */
+  /* filter: url('@/assets/icons/IconTick.png'); */
   /* background-origin: ; */
 }
 </style>

@@ -89,9 +89,9 @@ export default {
       // eslint-disable-next-line vue/no-mutating-props
       this.data.image = e.target.files[0];
     },
-    setCategory(event) {
+    setCategory(e) {
       // eslint-disable-next-line vue/no-mutating-props
-      this.data.idCategory = event.target.value;
+      this.data.idCategory = e.target.value;
     },
   },
 };

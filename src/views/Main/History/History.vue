@@ -15,9 +15,9 @@
 </template>
 
 <script>
-import BaseMenu from "../../../components/BaseMenu";
-import TitleBar from "../../../components/History/TitleBar";
-import CardHistory from "../../../components/History/CardHistory";
+import BaseMenu from "@/components/BaseMenu";
+import TitleBar from "@/components/History/TitleBar";
+import CardHistory from "@/components/History/CardHistory";
 
 export default {
   metaInfo: {
