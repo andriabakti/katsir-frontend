@@ -3,11 +3,11 @@ import Vue from 'vue'
 import { vfmPlugin } from "vue-final-modal";
 // import VModal from 'vue-js-modal'
 // module: router
-import router from './routers'
+import router from '@/routers'
 // module: store
-import store from './store'
+import store from '@/store'
 // base: app
-import App from './App.vue'
+import App from '@/App.vue'
 // style: bootstrap
 import 'bootstrap/dist/css/bootstrap.min.css'
 

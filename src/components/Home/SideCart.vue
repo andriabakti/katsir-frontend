@@ -6,7 +6,7 @@
     </div>
     <div class="cart_list">
       <div class="cart_empty" v-if="count === 0">
-        <img src="../../assets/images/ImgEmpty.png" />
+        <img src="@/assets/images/ImgEmpty.png" />
         <h3>Your cart is empty</h3>
         <p>Please add some items from the menu</p>
       </div>
@@ -19,11 +19,11 @@
             <h6>{{ item.name }}</h6>
             <div class="item_count">
               <div class="count_box">
-                <button class="btn" @click="decreaseCount(item.count)">-</button>
+                <button class="btn" @click="decrementQty(item)">-</button>
                 <div>{{ quantity(item.id) }}</div>
-                <button class="btn" @click="increaseCount(item)">+</button>
+                <button class="btn" @click="incrementQty(item)">+</button>
               </div>
-              <span>Rp. {{ formatPrice(item.price * item.count) }}</span>
+              <span>Rp. {{ formatPrice(item.price * item.quantity) }}</span>
             </div>
           </div>
           <button class="btn" @click="removeItem(item.id)">x</button>
@@ -45,29 +45,24 @@
 <script>
 // package: vuex
 import { mapMutations, mapGetters } from "vuex";
-//
-// import store from "../../store/index";
 // module: util-numeral
-import { formatPrice } from "../../utils/numeral";
+import { formatPrice } from "@/utils/numeral";
 
 export default {
   name: "SideCart",
   data: () => ({
     formatPrice: formatPrice,
   }),
-  methods: {
-    ...mapMutations(["removeItem", "getCount", "decreaseCount", "increaseCount"]),
-  },
   computed: {
-    // ...mapState({
-    //   carts: (state) => state.cart.carts,
-    // }),
     ...mapGetters({
-      cart: "getCart",
-      count: "countCart",
-      quantity: "getQuantity",
-      total: "getTotal",
+      cart: "getterCart",
+      count: "getterCount",
+      quantity: "getterQty",
+      total: "getterTotal",
     }),
+  },
+  methods: {
+    ...mapMutations(["removeItem", "decrementQty", "incrementQty"]),
   },
 };
 </script>

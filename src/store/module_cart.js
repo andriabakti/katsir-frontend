@@ -6,6 +6,26 @@ export const storeCart = {
     total: 0,
     tax: 0
   }),
+  getters: {
+    getterCart: (state) => {
+      return state.carts
+    },
+    getterCount: (state) => {
+      return state.carts.length
+    },
+    getterQty: (state) => (payload) => {
+      const cartItem = state.carts.find((item) => {
+        return item.id === payload
+      })
+      return cartItem.quantity
+    },
+    getterTotal: (state) => {
+      const totalPrice = state.carts.reduce((sum, item) => {
+        return sum + (item.price * item.quantity)
+      }, 0)
+      return state.total = totalPrice
+    }
+  },
   mutations: {
     addToCart: (state, payload) => {
       const isCart = state.carts.find((item) => {
@@ -13,7 +33,7 @@ export const storeCart = {
       })
       if (!isCart) {
         const item = payload
-        item.count = 1
+        item.quantity = 1
         state.carts.push(item)
       }
     },
@@ -23,43 +43,23 @@ export const storeCart = {
       })
       return state.carts = filtered
     },
-    decreaseCount: (state, payload) => {
-      // const cartItem = state.carts.find((item) => {
-      //   return item.id === payload
-      // })
-      return payload -= 1
-    },
-    increaseCount: (state, payload) => {
-      // const cartItem = state.carts.find((item) => {
-      //   return item.id === payload.id
-      // })
-      return payload.count += 1
-      // Object.assign(cartItem, { ...cartItem, count: increase })
-      // Vue.set(cartItem, 'count', increase)
-    }
-  },
-  getters: {
-    getCart: (state) => {
-      return state.carts
-    },
-    countCart: (state) => {
-      return state.carts.length
-    },
-    getQuantity: (state) => (payload) => {
-      const cartItem = state.carts.find((item) => {
-        return item.id === payload
+    decrementQty: (state, payload) => {
+      const cartItem = state.carts.map((item) => {
+        if (item.id === payload.id) {
+          item.quantity -= 1
+        }
+        return item
       })
-      return cartItem.count
+      return state.carts = cartItem
     },
-    getTotal: ({ carts, total }) => {
-      if (carts.length > 0) {
-        const totalPrice = carts.reduce((sum, item) => {
-          return sum + (item.price * item.count)
-        }, 0)
-        return total = totalPrice
-      } else {
-        return total
-      }
+    incrementQty: (state, payload) => {
+      const cartItem = state.carts.map((item) => {
+        if (item.id === payload.id) {
+          item.quantity += 1
+        }
+        return item
+      })
+      return state.carts = cartItem
     }
   }
 }

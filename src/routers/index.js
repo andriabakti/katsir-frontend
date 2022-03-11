@@ -1,12 +1,12 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Meta from 'vue-meta'
-import Landing from '../views/Landing/Landing.vue'
-import Login from '../views/Auth/Login/Login.vue'
-import Register from '../views/Auth/Register/Register.vue'
-import Home from '../views/Main/Home/Home.vue'
-// import History from '../views/Main/History/History.vue'
-import store from '../store/index'
+import Landing from '@/views/Landing/Landing.vue'
+import Login from '@/views/Auth/Login/Login.vue'
+import Register from '@/views/Auth/Register/Register.vue'
+import Home from '@/views/Main/Home/Home.vue'
+// import History from '@/views/Main/History/History.vue'
+import store from '@/store'
 
 Vue.use(Router)
 Vue.use(Meta)

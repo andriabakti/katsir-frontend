@@ -1,11 +1,19 @@
 // module: axios-util
-import { apiInstance } from '../utils/axios'
+import { apiInstance } from '@/utils/axios'
 
 export const storeProduct = {
   state: () => ({
     products: [],
     pages: null
   }),
+  getters: {
+    getterProduct: (state) => {
+      return state.products
+    },
+    getterPage: (state) => {
+      return state.pages
+    }
+  },
   mutations: {
     setProduct: (state, payload) => {
       state.products = payload
@@ -20,7 +28,7 @@ export const storeProduct = {
         apiInstance
           .get(`/product${payload || ''}`)
           .then((res) => {
-            console.log(res)
+            // console.log(res)
             commit('setProduct', res.data.result)
             commit('setPagination', res.data.page_info)
             resolve(res.data.result)
@@ -36,7 +44,7 @@ export const storeProduct = {
         apiInstance
           .post(`/product`, payload)
           .then((res) => {
-            console.log(res)
+            // console.log(res)
             alert('Add product berhasil')
             resolve(res)
           })
@@ -47,45 +55,34 @@ export const storeProduct = {
           })
       })
     },
-    editProduct: (context, payload) => {
-      return new Promise((resolve, reject) => {
-        console.log('ini update product')
-        apiInstance
+    editProduct: async (context, payload) => {
+      // console.log('ini update product')
+      try {
+        const res = await apiInstance
           .patch(`/product/${payload.id}`, payload.data)
-          .then((res) => {
-            console.log(res)
-            alert('Edit product berhasil')
-            resolve(res)
-          })
-          .catch((err) => {
-            alert('Edit product gagal')
-            reject(err)
-          })
-      })
-    },
-    deleteProduct: (context, payload) => {
-      return new Promise((resolve, reject) => {
-        console.log('ini delete product' + payload)
-        apiInstance
-          .delete(`/product/${payload}`)
-          .then((res) => {
-            console.log(res)
-            // alert('Delete product berhasil')
-            resolve(res)
-          })
-          .catch((err) => {
-            alert('Delete product gagal')
-            reject(err)
-          })
-      })
+        // console.log(res)
+        alert('Edit product berhasil')
+        return res
+      } catch (err) {
+        alert('Edit product gagal')
+        return err
+      }
     }
   },
-  getters: {
-    products: (state) => {
-      return state.products
-    },
-    getPage: (state) => {
-      return state.pages
-    }
+  deleteProduct: (context, payload) => {
+    return new Promise((resolve, reject) => {
+      // console.log('ini delete product' + payload)
+      apiInstance
+        .delete(`/product/${payload}`)
+        .then((res) => {
+          // console.log(res)
+          // alert('Delete product berhasil')
+          resolve(res)
+        })
+        .catch((err) => {
+          alert('Delete product gagal')
+          reject(err)
+        })
+    })
   }
 }

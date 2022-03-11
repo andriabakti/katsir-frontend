@@ -4,7 +4,7 @@
       <div class="side-left">
         <BaseHeader />
         <div class="row">
-          <BaseNavbar @toggle-active="toggleModal" @toggle-exit="toggleExit" />
+          <BaseNavbar @toggle-active="toggleModal" />
           <div class="section-main">
             <!-- <div class="side-upper">
           <div class="form-group">
@@ -20,7 +20,7 @@
           </div>
             </div>-->
             <div class="side-lower">
-              <div class="card-box col-md-4" v-for="item in products" :key="item.id">
+              <div class="card-box col-md-4" v-for="item in product" :key="item.id">
                 <CardProduct
                   :data="item"
                   @toggle-event="addToCart(item)"
@@ -98,35 +98,24 @@ export default {
       category_id: 0,
     },
   }),
+  computed: {
+    ...mapGetters({
+      product: "getterProduct",
+      // pagination: "getterPage",
+      cart: "getterCart",
+    }),
+  },
   methods: {
-    ...mapActions([
-      "login",
-      "getProduct",
-      "insertProduct",
-      "editProduct",
-      "deleteProduct",
-    ]),
     ...mapMutations(["addToCart"]),
-    toggleExit() {
-      this.exitActive = !this.exitActive;
-    },
-    toggleDelete(id) {
-      this.deleteId = id;
-      this.deleteActive = !this.deleteActive;
-    },
+    ...mapActions(["getProduct", "insertProduct", "editProduct", "deleteProduct"]),
     toggleModal() {
       this.modalActive = !this.modalActive;
       if (!this.modalActive) {
         this.clearModal();
       }
     },
-    clearModal() {
-      this.dataModal.id = null;
-      this.dataModal.name = "";
-      this.dataModal.price = 0;
-      this.dataModal.image = null;
-      this.dataModal.category_id = 0;
-      this.modalActive = false;
+    handleEventModal() {
+      this.dataModal.id ? this.updateProduct() : this.addProduct();
     },
     addProduct() {
       const data = new FormData();
@@ -138,6 +127,14 @@ export default {
         this.clearModal();
         this.getProduct();
       });
+    },
+    setUpdate(data) {
+      this.modalActive = true;
+      this.dataModal.id = data.id;
+      this.dataModal.name = data.name;
+      this.dataModal.price = data.price;
+      this.dataModal.image = data.image;
+      this.dataModal.category_id = data.category_id;
     },
     updateProduct() {
       const data = new FormData();
@@ -154,16 +151,17 @@ export default {
         this.getProduct();
       });
     },
-    setUpdate(data) {
-      this.modalActive = true;
-      this.dataModal.id = data.id;
-      this.dataModal.name = data.name;
-      this.dataModal.price = data.price;
-      this.dataModal.image = data.image;
-      this.dataModal.category_id = data.category_id;
+    clearModal() {
+      this.dataModal.id = null;
+      this.dataModal.name = "";
+      this.dataModal.price = 0;
+      this.dataModal.image = null;
+      this.dataModal.category_id = 0;
+      this.modalActive = false;
     },
-    handleEventModal() {
-      this.dataModal.id ? this.updateProduct() : this.addProduct();
+    toggleDelete(id) {
+      this.deleteId = id;
+      this.deleteActive = !this.deleteActive;
     },
     deleteProduct() {
       this.deleteProduct(this.deleteId).then(() => {
@@ -185,18 +183,10 @@ export default {
       this.getProduct(url);
     },
     checkActive(id) {
-      return this.getCart.find((item) => {
+      return this.cart.find((item) => {
         item.id === id;
       });
     },
-  },
-  computed: {
-    ...mapGetters({
-      products: "products",
-      pagination: "getPage",
-      countCart: "countCart",
-      getCart: "getCart",
-    }),
   },
   mounted() {
     this.getProduct();

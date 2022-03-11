@@ -1,9 +1,9 @@
 // package: axios
 import axios from 'axios'
 // module: router
-import router from '../routers/'
+import router from '@/routers'
 // module: store
-import store from '../store/'
+import store from '@/store'
 
 export const apiInstance = axios.create({
   baseURL: `${process.env.VUE_APP_BASE_URL}`
@@ -13,7 +13,7 @@ export const interceptorsRequest = () => {
   apiInstance.interceptors.request.use(
     function (config) {
       config.headers = {
-        Authorization: `Bearer ${store.getters.getToken}`
+        Authorization: `Bearer ${store.getters.getterToken}`
       }
       return config
     },

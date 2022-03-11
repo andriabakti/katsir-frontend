@@ -1,13 +1,24 @@
 // module: axios-util
-import { apiInstance } from '../utils/axios'
+import { apiInstance } from '@/utils/axios'
 // module: router
-import router from '../routers/index'
+import router from '@/routers'
 
 export const storeAuth = {
   state: () => ({
     user: {},
     token: localStorage.getItem('token') || null
   }),
+  getters: {
+    isLogin: (state) => {
+      return state.token !== null
+    },
+    getterToken: (state) => {
+      return state.token
+    },
+    getterUser: (state) => {
+      return state.user
+    }
+  },
   mutations: {
     setUser: (state, payload) => {
       state.user = payload
@@ -23,7 +34,7 @@ export const storeAuth = {
         apiInstance
           .post('/user/register', payload)
           .then((res) => {
-            console.log(res)
+            // console.log(res)
             router.push('/login')
             alert('Registrasi akun berhasil')
             resolve(res.data.result)
@@ -40,7 +51,7 @@ export const storeAuth = {
         apiInstance
           .post('/user/login', payload)
           .then((res) => {
-            console.log(res)
+            // console.log(res)
             commit('setUser', res.data.result)
             localStorage.setItem('token', res.data.result.token)
             router.push('/home')
@@ -53,23 +64,6 @@ export const storeAuth = {
             reject(err)
           })
       })
-    },
-    toLogout: ({ commit }) => {
-      localStorage.removeItem('token')
-      commit('setToken', null)
-      router.push('/login')
-      alert('Logout berhasil')
-    }
-  },
-  getters: {
-    isLogin: (state) => {
-      return state.token !== null
-    },
-    getToken: (state) => {
-      return state.token
-    },
-    getUser: (state) => {
-      return state.user
     }
   }
 }

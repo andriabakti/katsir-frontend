@@ -37,7 +37,7 @@ button {
 }
 #menu {
   margin-left: 13px;
-  background-image: url("../../assets/icons/IconMenu.png");
+  background-image: url("@/assets/icons/IconMenu.png");
 }
 h3 {
   font-size: 30px;

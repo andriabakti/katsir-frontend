@@ -1,7 +1,7 @@
 <template>
   <div class="row">
     <div class="title-bar">
-      <button class="btn" id="menu"></button>
+      <button class="btn" id="menu" @click="toProduct"></button>
       <h3>Food Items</h3>
       <button class="btn" id="search"></button>
     </div>
@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import { mapActions, mapGetters } from "vuex";
+import { mapActions } from "vuex";
 
 export default {
   name: "BaseHeader",
@@ -22,12 +22,6 @@ export default {
       const url = `?search=${e.target.value}`;
       this.getProduct(url);
     },
-  },
-  computed: {
-    ...mapGetters({
-      products: "products",
-      countCart: "countCart",
-    }),
   },
   mounted() {
     this.getProduct();
@@ -63,7 +57,7 @@ button {
   /* margin-left: 13px; */
   height: 60px;
   width: 60px;
-  background-image: url("../assets/icons/IconMenu.svg");
+  background-image: url("@/assets/icons/IconMenu.svg");
 }
 .title-bar h3 {
   font-size: 30px;
@@ -76,6 +70,6 @@ button {
   /* margin-right: auto; */
   height: 60px;
   width: 60px;
-  background-image: url("../assets/icons/IconSearch.svg");
+  background-image: url("@/assets/icons/IconSearch.svg");
 }
 </style>

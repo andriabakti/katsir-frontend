@@ -18,7 +18,9 @@
 </template>
 
 <script>
-import { mapActions } from "vuex";
+// module: vuex
+import { mapMutations } from "vuex";
+// component:
 import ModalConfirm from "@/components/ModalConfirm";
 
 export default {
@@ -30,7 +32,7 @@ export default {
     exitActive: false,
   }),
   methods: {
-    ...mapActions(["toLogout"]),
+    ...mapMutations(["setToken"]),
     toHome() {
       this.$router.push("/home");
     },
@@ -39,6 +41,12 @@ export default {
     },
     showModal() {
       this.exitActive = !this.exitActive;
+    },
+    toLogout: () => {
+      localStorage.removeItem("token");
+      this.$store.commit("setToken", null);
+      this.$router.push("/login");
+      alert("Logout berhasil");
     },
   },
 };
@@ -76,15 +84,15 @@ button {
   border: none;
 }
 #product {
-  background-image: url("../assets/icons/IconFood.svg");
+  background-image: url("@/assets/icons/IconFood.svg");
 }
 #history {
-  background-image: url("../assets/icons/IconReport.svg");
+  background-image: url("@/assets/icons/IconReport.svg");
 }
 #addition {
-  background-image: url("../assets/icons/IconAdd.svg");
+  background-image: url("@/assets/icons/IconAdd.svg");
 }
 #exit {
-  background-image: url("../assets/icons/IconExit.png");
+  background-image: url("@/assets/icons/IconExit.png");
 }
 </style>

@@ -42,7 +42,7 @@ export default {
 /* Background */
 .row {
   height: 100vh;
-  background-image: url("../../assets/images/BgAuth.jpg");
+  background-image: url("@/assets/images/BgAuth.jpg");
   background-size: cover;
 }
 

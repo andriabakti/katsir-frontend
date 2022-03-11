@@ -21,10 +21,10 @@
 </template>
 
 <script>
-// module: util-numeral
-import { formatPrice } from "../../utils/numeral";
 // package: vuex
 import { mapGetters } from "vuex";
+// module: util-numeral
+import { formatPrice } from "@/utils/numeral";
 
 export default {
   name: "CardProduct",
@@ -41,7 +41,7 @@ export default {
   },
   computed: {
     ...mapGetters({
-      user: "getUser",
+      user: "getterUser",
     }),
   },
 };
@@ -88,7 +88,7 @@ export default {
 
 .active {
   filter: brightness(50%);
-  /* filter: url('../../assets/icons/IconTick.png'); */
+  /* filter: url('@/assets/icons/IconTick.png'); */
   /* background-origin: ; */
 }
 </style>
