@@ -5,6 +5,7 @@
 </template>
 
 <script>
+// module: axios
 import { interceptorsRequest, interceptorsResponse } from "./utils/axios";
 
 export default {

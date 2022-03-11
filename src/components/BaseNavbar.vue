@@ -6,20 +6,39 @@
       <button class="btn" id="addition" @click="$emit('toggle-active')"></button>
     </div>
     <div class="down">
-      <button class="btn" id="exit" @click="$emit('toggle-exit')"></button>
+      <button class="btn" id="exit" @click="showModal"></button>
     </div>
+    <ModalConfirm
+      :text="'logout'"
+      :show.sync="exitActive"
+      :event-close="showModal"
+      :event-confirm="toLogout"
+    />
   </nav>
 </template>
 
 <script>
+import { mapActions } from "vuex";
+import ModalConfirm from "@/components/ModalConfirm";
+
 export default {
   name: "BaseNavbar",
+  components: {
+    ModalConfirm,
+  },
+  data: () => ({
+    exitActive: false,
+  }),
   methods: {
+    ...mapActions(["toLogout"]),
     toHome() {
       this.$router.push("/home");
     },
     toHistory() {
       alert("Halaman history belum tersedia");
+    },
+    showModal() {
+      this.exitActive = !this.exitActive;
     },
   },
 };

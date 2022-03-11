@@ -1,43 +1,52 @@
 <template>
-  <div class="cart">
-    <div class="cart-bar">
+  <div class="wrapper">
+    <div class="cart_bar">
       <h3>Cart</h3>
-      <!-- <div> -->
-      <span class="badge">{{ countCart }}</span>
-      <!-- </div> -->
+      <span class="cart_badge">{{ count }}</span>
     </div>
-    <div class="empty" v-if="countCart == 0">
-      <img src="../../assets/images/ImgEmpty.png" />
-      <h3>Your cart is empty</h3>
-      <p>Please add some items from the menu</p>
-    </div>
-    <ul class="list-unstyled card" v-if="countCart > 0">
-      <li class="media" v-for="item in getCart" :key="item.id">
-        <div class="container-img">
-          <img :src="item.image" class="mr-3" />
-        </div>
-        <div class="media-body">
-          <h6 class="mt-0 mb-1">{{ item.name }}</h6>
-          <div class="cart-body">
-            <div class="count-box">
-              <button @click="setMin">-</button>
-              <input type="number" name="count" value="1" disabled />
-              <button @click="setAdd">+</button>
-            </div>
-            <h5>
-              Rp.
-              {{ formatPrice(item.price) }}
-            </h5>
+    <div class="cart_list">
+      <div class="cart_empty" v-if="count === 0">
+        <img src="../../assets/images/ImgEmpty.png" />
+        <h3>Your cart is empty</h3>
+        <p>Please add some items from the menu</p>
+      </div>
+      <div class="cart_item" v-if="count > 0">
+        <div class="item_card" v-for="item in cart" :key="item.id">
+          <div class="item_image">
+            <img :src="item.image" class="mr-3" />
           </div>
+          <div class="item_detail">
+            <h6>{{ item.name }}</h6>
+            <div class="item_count">
+              <div class="count_box">
+                <button class="btn" @click="decreaseCount(item.count)">-</button>
+                <div>{{ quantity(item.id) }}</div>
+                <button class="btn" @click="increaseCount(item)">+</button>
+              </div>
+              <span>Rp. {{ formatPrice(item.price * item.count) }}</span>
+            </div>
+          </div>
+          <button class="btn" @click="removeItem(item.id)">x</button>
         </div>
-      </li>
-    </ul>
+      </div>
+      <div class="cart_detail" v-if="count > 0">
+        <div class="detail_total">
+          <h6>Total:</h6>
+          <span>Rp. {{ formatPrice(total) }}*</span>
+        </div>
+        <span>*Belum termasuk ppn</span>
+        <button class="btn btn_checkout">Checkout</button>
+        <button class="btn btn_cancel">Cancel</button>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
 // package: vuex
-import { mapGetters } from "vuex";
+import { mapMutations, mapGetters } from "vuex";
+//
+// import store from "../../store/index";
 // module: util-numeral
 import { formatPrice } from "../../utils/numeral";
 
@@ -46,45 +55,55 @@ export default {
   data: () => ({
     formatPrice: formatPrice,
   }),
+  methods: {
+    ...mapMutations(["removeItem", "getCount", "decreaseCount", "increaseCount"]),
+  },
   computed: {
-    ...mapGetters(["getCart", "countCart"]),
+    // ...mapState({
+    //   carts: (state) => state.cart.carts,
+    // }),
+    ...mapGetters({
+      cart: "getCart",
+      count: "countCart",
+      quantity: "getQuantity",
+      total: "getTotal",
+    }),
   },
 };
 </script>
 
 <style scoped>
-.cart {
+/* base: wrapper */
+.wrapper {
   padding: 0;
-  width: 30%;
+  width: 25%;
   height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: cornflowerblue;
-  /* border-left: 1px solid #CECECE; */
-  /* overflow: auto; */
 }
 
-.cart-bar {
+/* section: cart-bar */
+.cart_bar {
   width: 100%;
   height: 80px;
-  background-color: crimson;
-  margin: 0;
   display: flex;
   align-items: center;
   justify-content: center;
   border-bottom: 1px solid rgb(0, 0, 0, 0.25);
   box-shadow: 0 4px 0px rgb(0, 0, 0, 0.25);
   position: sticky;
+  background-color: #ffffff;
   top: 0;
-  z-index: 3;
+  z-index: 2;
 }
-.cart-bar h3 {
+.cart_bar > h3 {
   font-size: 25px;
   font-weight: bold;
   margin-top: 10px;
 }
-.badge {
+
+.cart_badge {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -96,73 +115,141 @@ export default {
   font-size: 22px;
   font-weight: bold;
   color: #ffffff;
-  margin-top: 17px;
+  /* margin-top: 17px; */
   margin-left: 5px;
 }
-
-.card {
-  position: absolute;
+/* section: cart-list */
+.cart_list {
   width: 100%;
-  height: 50vh;
-  overflow: auto;
-  /* display: flex; */
-  /* align-items: center; */
-  /* background-color: coral; */
+  height: calc(100vh - 80px);
+  /* background-color: cornflowerblue; */
+  padding-top: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border-left: 1px solid #cecece;
 }
-/* .media {
-	border-bottom: 1px solid #CECECE;
-} */
-.empty {
+
+/* content: cart-empty */
+.cart_empty {
   display: flex;
   flex-direction: column;
   align-items: center;
   margin-top: 50px;
 }
-.empty img {
+.cart_empty > img {
   width: 150px;
 }
-.empty h3 {
+.cart_empty > h3 {
   margin-top: -25px;
   font-size: 25px;
   font-weight: bold;
 }
-.empty p {
+.cart_empty > p {
   margin-top: -5px;
   font-size: 15px;
   font-weight: bold;
   color: #cecece;
 }
-.count-box input {
-  width: 30px;
-  font-size: 12px;
+
+/* content: cart-item */
+.cart_item {
+  overflow: auto;
 }
-.cart-body {
+
+.item_card {
   display: flex;
-  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
 }
-.container-img {
+
+.item_image {
   width: 70px;
   height: 70px;
   margin-right: 10px;
 }
-.container-img img {
+.item_image > img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  border-radius: 5px;
 }
-.media {
-  /* margin-bottom: 20px; */
+
+.item_detail {
+  height: 70px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: calc(100% - 80px);
+  /* background: teal; */
+}
+
+.item_count {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  /* background-color: crimson; */
+}
+/*  */
+.count_box {
+  /* width: 100%; */
+  height: 30px;
+  display: flex;
+  flex-direction: row;
+  /* background: tan; */
+  color: #82de3a;
+}
+.count_box > button {
+  width: 30px;
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 1px solid #cecece;
+  /* height: 30px; */
+  background-color: rgba(130, 222, 58, 0.2);
+  border: 1px solid #82de3a;
+  border-radius: 0;
 }
-.count-box button {
-  border-style: none;
-  border: 1px solid green;
-  color: green;
+.count_box div {
+  width: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  text-align: center;
+  border-top: 1px solid #82de3a;
+  border-bottom: 1px solid #82de3a;
 }
-/* .count-box input {
-	text-align: center;
-} */
+
+/* section: cart-detail */
+.cart_detail {
+  width: 100%;
+  min-height: 30%;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  margin-top: auto;
+  /* background: coral; */
+  /* position: relative;
+  bottom: 0; */
+}
+
+.detail_total {
+  display: flex;
+  justify-content: space-between;
+  font-weight: 700;
+}
+
+/* content: bottom */
+.cart_detail > button {
+  height: 50px;
+  color: #ffffff;
+  font-weight: 600;
+  margin-top: 20px;
+}
+.btn_checkout {
+  background-color: #57cad5;
+}
+.btn_cancel {
+  background-color: #f24f8a;
+}
 </style>

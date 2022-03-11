@@ -59,10 +59,10 @@ export default {
   border-radius: 10px 10px 0 0;
   border: 0;
   background: none;
-  font-family: "Montserrat", sans-serif !important;
+  /* font-family: "Montserrat", sans-serif !important; */
 }
 .img {
-  width: 210px;
+  width: 250px;
   min-height: 165px;
   cursor: pointer;
 }

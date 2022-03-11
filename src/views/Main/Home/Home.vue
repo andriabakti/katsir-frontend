@@ -1,12 +1,12 @@
 <template>
   <div class="container-fluid">
-    <div class="row">
+    <div class="row wrapper">
       <div class="side-left">
         <BaseHeader />
-        <div class="body row">
+        <div class="row">
           <BaseNavbar @toggle-active="toggleModal" @toggle-exit="toggleExit" />
-          <div class="content">
-            <!-- <div class="upper">
+          <div class="section-main">
+            <!-- <div class="side-upper">
           <div class="form-group">
             <select id="sort" class="form-control" @change="setSort">
               <option selected>Sort by</option>
@@ -19,8 +19,8 @@
             <input type="text" class="form-control" placeholder="Search" @keyup="setSearch">
           </div>
             </div>-->
-            <div class="lower">
-              <div class="card-box col-4" v-for="item in products" :key="item.id">
+            <div class="side-lower">
+              <div class="card-box col-md-4" v-for="item in products" :key="item.id">
                 <CardProduct
                   :data="item"
                   @toggle-event="addToCart(item)"
@@ -44,7 +44,6 @@
       @save-event="addProduct"
       @fire-event="handleEventModal"
     />
-    <ModalExit v-show="exitActive" @close-exit="toggleExit" />
     <ModalDelete
       v-show="deleteActive"
       @close-delete="toggleDelete"
@@ -55,14 +54,13 @@
 
 <script>
 // component: module
-import BaseHeader from "../../../components/BaseHeader";
-import BaseNavbar from "../../../components/BaseNavbar";
-import CardProduct from "../../../components/Home/CardProduct";
-import SideCart from "../../../components/Home/SideCart";
-import ModalAdd from "../../../components/Home/ModalAdd";
-import ModalExit from "../../../components/ModalExit";
-import ModalDelete from "../../../components/ModalDelete";
-// import CardPagination from '../../../components/Home/CardPagination'
+import BaseHeader from "@/components/BaseHeader";
+import BaseNavbar from "@/components/BaseNavbar";
+import CardProduct from "@/components/Home/CardProduct";
+import SideCart from "@/components/Home/SideCart";
+import ModalAdd from "@/components/Home/ModalAdd";
+import ModalDelete from "@/components/ModalDelete";
+// import CardPagination from '@/components/Home/CardPagination'
 // package: vuex
 import { mapActions, mapGetters, mapMutations } from "vuex";
 
@@ -83,14 +81,13 @@ export default {
     SideCart,
     // CardPagination,
     ModalAdd,
-    ModalExit,
+    // ModalConfirm,
     ModalDelete,
   },
   data: () => ({
     username: "",
     password: "",
     modalActive: false,
-    exitActive: false,
     deleteActive: false,
     deleteId: null,
     dataModal: {
@@ -189,7 +186,7 @@ export default {
     },
     checkActive(id) {
       return this.getCart.find((item) => {
-        return item.id === id;
+        item.id === id;
       });
     },
   },
@@ -208,19 +205,22 @@ export default {
 </script>
 
 <style scoped>
-.side-left {
-  width: 70%;
+.wrapper {
+  max-height: 100vh;
 }
-.content {
-  width: calc(100% - 80px);
-  padding: 0;
-  height: 100vh;
+.side-left {
+  width: 75%;
+}
+.section-main {
   display: flex;
   flex-direction: column;
+  width: calc(100% - 80px);
+  height: calc(100vh - 80px);
   background-color: rgba(190, 195, 202, 0.3);
+  padding: 0;
   overflow: auto;
 }
-.upper {
+.side-upper {
   height: 100px;
   display: flex;
   align-items: center;
@@ -228,18 +228,18 @@ export default {
   padding-top: 15px;
   background-color: coral;
 }
-.lower {
+.side-lower {
   display: flex;
   flex-wrap: wrap;
   justify-content: flex-start;
   /* align-items: flex-start; */
   padding-bottom: 50px;
-  background-color: tan;
+  /* background-color: tan; */
 }
 
 .card-box {
   display: flex;
   justify-content: center;
-  background-color: teal;
+  /* background-color: teal; */
 }
 </style>
