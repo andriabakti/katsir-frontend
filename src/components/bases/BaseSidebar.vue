@@ -2,7 +2,7 @@
   <nav class="side">
     <div class="up">
       <button class="btn" id="product" @click="toHome"></button>
-      <button class="btn" id="history" @click="toHistory"></button>
+      <!-- <button class="btn" id="history" @click="toHistory"></button> -->
       <button class="btn" id="addition" @click="$emit('toggle-active')"></button>
     </div>
     <div class="down">
@@ -10,6 +10,7 @@
     </div>
     <ModalConfirm
       :text="'logout'"
+      :text-btn="'Logout'"
       :show.sync="exitActive"
       :event-close="showModal"
       :event-confirm="toLogout"
@@ -18,13 +19,18 @@
 </template>
 
 <script>
-// module: vuex
+import Vue from "vue";
+// package: vuex
 import { mapMutations } from "vuex";
-// component:
-import ModalConfirm from "@/components/ModalConfirm";
+// router: base
+import router from "@/routers";
+// store: base
+import store from "@/stores";
+// component: base
+import ModalConfirm from "@/components/bases/ModalConfirm";
 
 export default {
-  name: "BaseNavbar",
+  name: "BaseSidebar",
   components: {
     ModalConfirm,
   },
@@ -37,16 +43,16 @@ export default {
       this.$router.push("/home");
     },
     toHistory() {
-      alert("Halaman history belum tersedia");
+      this.$router.push("/history");
     },
     showModal() {
       this.exitActive = !this.exitActive;
     },
     toLogout: () => {
       localStorage.removeItem("token");
-      this.$store.commit("setToken", null);
-      this.$router.push("/login");
-      alert("Logout berhasil");
+      store.commit("setToken", null);
+      router.push("/login");
+      Vue.$toast.success("Logout success");
     },
   },
 };
@@ -93,6 +99,6 @@ button {
   background-image: url("@/assets/icons/IconAdd.svg");
 }
 #exit {
-  background-image: url("@/assets/icons/IconExit.png");
+  background-image: url("@/assets/icons/IconExit.svg");
 }
 </style>

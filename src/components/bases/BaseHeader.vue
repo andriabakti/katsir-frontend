@@ -9,6 +9,7 @@
 </template>
 
 <script>
+// package: vuex
 import { mapActions } from "vuex";
 
 export default {
@@ -16,16 +17,16 @@ export default {
   methods: {
     ...mapActions(["getProduct"]),
     toProduct() {
-      this.$router.push("/product");
+      this.$router.push("/home");
     },
     setSearch(e) {
       const url = `?search=${e.target.value}`;
       this.getProduct(url);
     },
   },
-  mounted() {
-    this.getProduct();
-  },
+  // mounted() {
+  //   this.getProduct();
+  // },
 };
 </script>
 

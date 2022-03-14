@@ -1,18 +1,14 @@
 <template>
   <div class="btn card">
     <div class="img">
-      <img
-        :src="data.image"
-        @click="$emit('toggle-event')"
-        :class="active ? 'active' : ''"
-      />
+      <img :src="data.image" :class="{ active: active }" @click="$emit('event-select')" />
     </div>
     <div class="text">
       <h3>{{ data.name }}</h3>
       <p>Rp. {{ formatPrice(data.price) }}</p>
       <div v-if="user.role === 'admin'">
         <button class="btn btn-active" @click="$emit('event-update', data)">Edit</button>
-        <button class="btn btn-warning" @click="$emit('toggle-delete', data.id)">
+        <button class="btn btn-warning" @click="$emit('event-delete', data.id)">
           Delete
         </button>
       </div>
@@ -23,7 +19,7 @@
 <script>
 // package: vuex
 import { mapGetters } from "vuex";
-// module: util-numeral
+// util: numeral
 import { formatPrice } from "@/utils/numeral";
 
 export default {
@@ -32,12 +28,9 @@ export default {
     formatPrice: formatPrice,
   }),
   props: {
-    data: {
-      type: Object,
-    },
-    active: {
-      type: Boolean,
-    },
+    data: Object,
+    active: Object,
+    eventDelete: Function,
   },
   computed: {
     ...mapGetters({

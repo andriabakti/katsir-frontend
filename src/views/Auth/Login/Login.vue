@@ -49,6 +49,7 @@
 </template>
 
 <script>
+// package: vuex
 import { mapActions } from "vuex";
 
 export default {
@@ -76,9 +77,6 @@ export default {
         password: this.password,
       };
       this.login(data);
-      // .then(() => {
-      //   this.$router.push('/home')
-      // })
     },
     toRegister() {
       this.$router.push("/register");

@@ -35,23 +35,30 @@
           <span>Rp. {{ formatPrice(total) }}*</span>
         </div>
         <span>*Belum termasuk ppn</span>
-        <button class="btn btn_checkout">Checkout</button>
+        <button class="btn btn_checkout" @click="showModal">Checkout</button>
         <button class="btn btn_cancel">Cancel</button>
       </div>
     </div>
+    <ModalPurchase :is-show.sync="modalActive" />
   </div>
 </template>
 
 <script>
 // package: vuex
-import { mapMutations, mapGetters } from "vuex";
-// module: util-numeral
+import { mapGetters, mapMutations } from "vuex";
+// component: module
+import ModalPurchase from "@/components/modules/ModalPurchase";
+// util: numeral
 import { formatPrice } from "@/utils/numeral";
 
 export default {
   name: "SideCart",
+  components: {
+    ModalPurchase,
+  },
   data: () => ({
     formatPrice: formatPrice,
+    modalActive: false,
   }),
   computed: {
     ...mapGetters({
@@ -63,6 +70,9 @@ export default {
   },
   methods: {
     ...mapMutations(["removeItem", "decrementQty", "incrementQty"]),
+    showModal() {
+      this.modalActive = !this.modalActive;
+    },
   },
 };
 </script>

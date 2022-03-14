@@ -4,7 +4,7 @@
       <div class="side-left">
         <BaseHeader />
         <div class="row">
-          <BaseNavbar @toggle-active="toggleModal" />
+          <BaseSidebar @toggle-active="toggleModal" />
           <div class="section-main">
             <!-- <div class="side-upper">
           <div class="form-group">
@@ -23,11 +23,10 @@
               <div class="card-box col-md-4" v-for="item in product" :key="item.id">
                 <CardProduct
                   :data="item"
-                  @toggle-event="addToCart(item)"
                   :active="checkActive(item.id)"
+                  @event-select="addToCart(item)"
                   @event-update="setUpdate(item)"
-                  @select-product="addToCart(item)"
-                  @toggle-delete="toggleDelete"
+                  @event-delete="toggleDelete"
                 />
               </div>
             </div>
@@ -38,31 +37,34 @@
       <SideCart />
     </div>
     <ModalAdd
-      v-show="modalActive"
       :data="dataModal"
-      @close-modal="toggleModal"
-      @save-event="addProduct"
-      @fire-event="handleEventModal"
+      :show.sync="modalActive"
+      :event-close="toggleModal"
+      :event-confirm="handleEvent"
     />
-    <ModalDelete
-      v-show="deleteActive"
-      @close-delete="toggleDelete"
-      @delete-event="deleteProduct()"
+    <ModalConfirm
+      :text="'delete this product'"
+      :text-btn="'Delete'"
+      :show.sync="deleteActive"
+      :event-close="toggleDelete"
+      :event-confirm="deleteProduct"
     />
   </div>
 </template>
 
 <script>
-// component: module
-import BaseHeader from "@/components/BaseHeader";
-import BaseNavbar from "@/components/BaseNavbar";
-import CardProduct from "@/components/Home/CardProduct";
-import SideCart from "@/components/Home/SideCart";
-import ModalAdd from "@/components/Home/ModalAdd";
-import ModalDelete from "@/components/ModalDelete";
-// import CardPagination from '@/components/Home/CardPagination'
 // package: vuex
-import { mapActions, mapGetters, mapMutations } from "vuex";
+import { mapGetters, mapMutations, mapActions } from "vuex";
+// component: side
+import SideCart from "./components/SideCart";
+// component: base
+import BaseHeader from "@/components/bases/BaseHeader";
+import BaseSidebar from "@/components/bases/BaseSidebar";
+import ModalConfirm from "@/components/bases/ModalConfirm";
+// component: module
+import CardProduct from "@/components/modules/CardProduct";
+import ModalAdd from "@/components/modules/ModalAdd";
+// import CardPagination from '@/components/modules/CardPagination'
 
 export default {
   metaInfo: {
@@ -76,13 +78,12 @@ export default {
   name: "PageHome",
   components: {
     BaseHeader,
-    BaseNavbar,
+    BaseSidebar,
     CardProduct,
     SideCart,
     // CardPagination,
     ModalAdd,
-    // ModalConfirm,
-    ModalDelete,
+    ModalConfirm,
   },
   data: () => ({
     username: "",
@@ -114,7 +115,7 @@ export default {
         this.clearModal();
       }
     },
-    handleEventModal() {
+    handleEvent() {
       this.dataModal.id ? this.updateProduct() : this.addProduct();
     },
     addProduct() {
@@ -167,7 +168,6 @@ export default {
       this.deleteProduct(this.deleteId).then(() => {
         this.deleteId = null;
         this.getProduct();
-        alert("Delete berhasil");
       });
     },
     setSearch(e) {
@@ -184,7 +184,7 @@ export default {
     },
     checkActive(id) {
       return this.cart.find((item) => {
-        item.id === id;
+        return item.id === id;
       });
     },
   },

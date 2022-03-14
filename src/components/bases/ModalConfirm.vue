@@ -9,7 +9,9 @@
     </div>
     <div class="modal-action">
       <button type="button" class="btn btn-cancel" @click="eventClose">Cancel</button>
-      <button type="button" class="btn btn-confirm" @click="eventConfirm">Logout</button>
+      <button type="button" class="btn btn-confirm" @click="eventConfirm">
+        {{ textBtn }}
+      </button>
     </div>
   </vue-final-modal>
 </template>
@@ -17,10 +19,10 @@
 <script>
 export default {
   name: "ModalConfirm",
-
   props: {
     show: Boolean,
     text: String,
+    textBtn: String,
     eventClose: Function,
     eventConfirm: Function,
   },

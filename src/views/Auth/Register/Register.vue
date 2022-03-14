@@ -60,6 +60,8 @@
 </template>
 
 <script>
+import Vue from "vue";
+// package: vuex
 import { mapActions } from "vuex";
 
 export default {
@@ -89,10 +91,14 @@ export default {
         username: this.username,
         role: 2,
       };
-      this.register(data);
-      // .then(() => {
-      //   this.$router.push('/login')
-      // })
+      this.register(data)
+        .then(() => {
+          this.$router.push("/login");
+          Vue.$toast.success("New cashier registered successfully");
+        })
+        .catch(() => {
+          Vue.$toast.error("Failed to register new cashier");
+        });
     },
     toLogin() {
       this.$router.push("/login");
