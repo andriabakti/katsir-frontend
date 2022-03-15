@@ -31,9 +31,7 @@
 export default {
   name: "CardPagination",
   props: {
-    data: {
-      type: Object,
-    },
+    data: Object,
   },
 };
 </script>

@@ -11,7 +11,7 @@
         <p>Please add some items from the menu</p>
       </div>
       <div class="cart_item" v-if="count > 0">
-        <div class="item_card" v-for="item in cart" :key="item.id">
+        <div class="item_card position-relative" v-for="item in cart" :key="item.id">
           <div class="item_image">
             <img :src="item.image" class="mr-3" />
           </div>
@@ -26,7 +26,12 @@
               <span>Rp. {{ formatPrice(item.price * item.quantity) }}</span>
             </div>
           </div>
-          <button class="btn" @click="removeItem(item.id)">x</button>
+          <button
+            class="btn btn-danger btn_remove position-absolute top-0 end-0"
+            @click="removeItem(item.id)"
+          >
+            x
+          </button>
         </div>
       </div>
       <div class="cart_detail" v-if="count > 0">
@@ -35,23 +40,32 @@
           <span>Rp. {{ formatPrice(total) }}*</span>
         </div>
         <span>*Belum termasuk ppn</span>
-        <button class="btn btn_checkout">Checkout</button>
-        <button class="btn btn_cancel">Cancel</button>
+        <button class="btn btn_checkout" @click="showModal">Checkout</button>
+        <button class="btn btn_cancel" @click="reset">Cancel</button>
       </div>
     </div>
+    <ModalPurchase :is-show.sync="modalActive" :event-close="showModal" />
   </div>
 </template>
 
 <script>
 // package: vuex
-import { mapMutations, mapGetters } from "vuex";
-// module: util-numeral
+import { mapGetters, mapMutations } from "vuex";
+// component: module
+import ModalPurchase from "@/components/modules/ModalPurchase";
+// store: base
+import store from "@/stores";
+// util: numeral
 import { formatPrice } from "@/utils/numeral";
 
 export default {
   name: "SideCart",
+  components: {
+    ModalPurchase,
+  },
   data: () => ({
     formatPrice: formatPrice,
+    modalActive: false,
   }),
   computed: {
     ...mapGetters({
@@ -62,7 +76,13 @@ export default {
     }),
   },
   methods: {
-    ...mapMutations(["removeItem", "decrementQty", "incrementQty"]),
+    ...mapMutations(["removeItem", "decrementQty", "incrementQty", "resetCart"]),
+    showModal() {
+      this.modalActive = !this.modalActive;
+    },
+    reset() {
+      store.commit("resetCart", []);
+    },
   },
 };
 </script>
@@ -87,10 +107,6 @@ export default {
   justify-content: center;
   border-bottom: 1px solid rgb(0, 0, 0, 0.25);
   box-shadow: 0 4px 0px rgb(0, 0, 0, 0.25);
-  position: sticky;
-  background-color: #ffffff;
-  top: 0;
-  z-index: 2;
 }
 .cart_bar > h3 {
   font-size: 25px;
@@ -213,6 +229,11 @@ export default {
   text-align: center;
   border-top: 1px solid #82de3a;
   border-bottom: 1px solid #82de3a;
+}
+.btn_remove {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
 }
 
 /* section: cart-detail */

@@ -9,6 +9,7 @@
 </template>
 
 <script>
+// package: vuex
 import { mapActions } from "vuex";
 
 export default {
@@ -16,25 +17,22 @@ export default {
   methods: {
     ...mapActions(["getProduct"]),
     toProduct() {
-      this.$router.push("/product");
+      this.$router.push("/home");
     },
     setSearch(e) {
       const url = `?search=${e.target.value}`;
       this.getProduct(url);
     },
   },
-  mounted() {
-    this.getProduct();
-  },
+  // mounted() {
+  //   this.getProduct();
+  // },
 };
 </script>
 
 <style scoped>
 .row {
   height: 80px;
-  position: sticky;
-  top: 0;
-  z-index: 3;
 }
 .title-bar {
   /* height: 90px; */

@@ -5,8 +5,8 @@
 </template>
 
 <script>
-// module: axios
-import { interceptorsRequest, interceptorsResponse } from "./utils/axios";
+// util: axios
+import { interceptorsRequest, interceptorsResponse } from "@/utils/axios";
 
 export default {
   name: "App",

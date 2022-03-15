@@ -2,14 +2,21 @@
   <nav class="side">
     <div class="up">
       <button class="btn" id="product" @click="toHome"></button>
-      <button class="btn" id="history" @click="toHistory"></button>
-      <button class="btn" id="addition" @click="$emit('toggle-active')"></button>
+      <button class="btn" id="history" @click="openModal"></button>
+      <button
+        v-if="user.role === 'admin'"
+        class="btn"
+        id="addition"
+        @click="$emit('toggle-active')"
+      ></button>
     </div>
     <div class="down">
       <button class="btn" id="exit" @click="showModal"></button>
     </div>
+    <ModalInfo :is-show.sync="modalInfo" :event-close="openModal" />
     <ModalConfirm
       :text="'logout'"
+      :text-btn="'Logout'"
       :show.sync="exitActive"
       :event-close="showModal"
       :event-confirm="toLogout"
@@ -18,35 +25,51 @@
 </template>
 
 <script>
-// module: vuex
-import { mapMutations } from "vuex";
-// component:
-import ModalConfirm from "@/components/ModalConfirm";
+import Vue from "vue";
+// package: vuex
+import { mapGetters, mapMutations } from "vuex";
+// router: base
+import router from "@/routers";
+// store: base
+import store from "@/stores";
+// component: base
+import ModalInfo from "@/components/bases/ModalInfo";
+import ModalConfirm from "@/components/bases/ModalConfirm";
 
 export default {
-  name: "BaseNavbar",
+  name: "BaseSidebar",
   components: {
+    ModalInfo,
     ModalConfirm,
   },
   data: () => ({
+    modalInfo: false,
     exitActive: false,
   }),
+  computed: {
+    ...mapGetters({
+      user: "getterUser",
+    }),
+  },
   methods: {
     ...mapMutations(["setToken"]),
     toHome() {
       this.$router.push("/home");
     },
     toHistory() {
-      alert("Halaman history belum tersedia");
+      this.$router.push("/history");
+    },
+    openModal() {
+      this.modalInfo = !this.modalInfo;
     },
     showModal() {
       this.exitActive = !this.exitActive;
     },
     toLogout: () => {
       localStorage.removeItem("token");
-      this.$store.commit("setToken", null);
-      this.$router.push("/login");
-      alert("Logout berhasil");
+      store.commit("setToken", null);
+      router.push("/login");
+      Vue.$toast.info("Logout success");
     },
   },
 };
@@ -93,6 +116,6 @@ button {
   background-image: url("@/assets/icons/IconAdd.svg");
 }
 #exit {
-  background-image: url("@/assets/icons/IconExit.png");
+  background-image: url("@/assets/icons/IconExit.svg");
 }
 </style>

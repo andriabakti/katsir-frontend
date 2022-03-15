@@ -5,32 +5,28 @@
     content-class="modal-content"
   >
     <div class="modal-body">
-      <p>Are you sure want to {{ text }} ?</p>
+      <p>Sorry, history page is not available yet for now</p>
     </div>
     <div class="modal-action">
-      <button type="button" class="btn btn-cancel" @click="eventClose">Cancel</button>
-      <button type="button" class="btn btn-confirm" @click="eventConfirm">Logout</button>
+      <button type="button" class="btn btn-cancel" @click="eventClose">Close</button>
     </div>
   </vue-final-modal>
 </template>
 
 <script>
 export default {
-  name: "ModalConfirm",
-
+  name: "ModalInfo",
   props: {
-    show: Boolean,
-    text: String,
+    isShow: Boolean,
     eventClose: Function,
-    eventConfirm: Function,
   },
   computed: {
     showModal: {
       get() {
-        return this.show;
+        return this.isShow;
       },
       set(value) {
-        this.$emit("update:show", value);
+        this.$emit("update:isShow", value);
       },
     },
   },
@@ -64,7 +60,7 @@ export default {
 }
 .modal-action {
   display: flex;
-  justify-content: space-evenly;
+  justify-content: center;
   align-items: center;
   padding: 1rem 0 0;
 }
@@ -78,9 +74,4 @@ export default {
 .btn-cancel {
   background-color: #f24f8a;
 }
-.btn-confirm {
-  background-color: #57cad5;
-}
 </style>
-
-.modal { display: block; }

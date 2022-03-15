@@ -1,10 +1,10 @@
 <template>
   <div class="container-fluid">
     <div class="row">
-      <TitleBar />
+      <BaseHeader />
     </div>
     <div class="body row">
-      <BaseMenu />
+      <BaseSidebar />
       <div class="content col-md-11">
         <CardHistory />
         <CardHistory />
@@ -15,9 +15,11 @@
 </template>
 
 <script>
-import BaseMenu from "@/components/BaseMenu";
-import TitleBar from "@/components/History/TitleBar";
-import CardHistory from "@/components/History/CardHistory";
+// component: base
+import BaseHeader from "@/components/bases/BaseHeader";
+import BaseSidebar from "@/components/bases/BaseSidebar";
+// component: module
+import CardHistory from "@/components/modules/CardHistory";
 
 export default {
   metaInfo: {
@@ -30,8 +32,8 @@ export default {
   },
   name: "PageHistory",
   components: {
-    BaseMenu,
-    TitleBar,
+    BaseSidebar,
+    BaseHeader,
     CardHistory,
   },
 };
