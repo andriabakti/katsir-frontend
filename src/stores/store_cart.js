@@ -65,13 +65,19 @@ export const storeCart = {
 				return item
 			})
 			return (state.carts = cartItem)
+		},
+		resetCart: (state, payload) => {
+			state.carts = payload
+			// state.total = payload.total
+			// state.tax = payload.tax
 		}
 	},
 	actions: {
-		purchaseOrder: async (context, payload) => {
+		purchaseOrder: async ({ commit }, payload) => {
 			try {
 				const res = await apiInstance.post(`/order`, payload)
 				Vue.$toast.success("Item(s) purchased successfully")
+				commit("resetCart", [])
 				// console.log(res)
 				return res
 			} catch (err) {

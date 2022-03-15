@@ -6,12 +6,10 @@
     <div class="text">
       <h3>{{ data.name }}</h3>
       <p>Rp. {{ formatPrice(data.price) }}</p>
-      <div v-if="user.role === 'admin'">
-        <button class="btn btn-active" @click="$emit('event-update', data)">Edit</button>
-        <button class="btn btn-warning" @click="$emit('event-delete', data.id)">
-          Delete
-        </button>
-      </div>
+    </div>
+    <div class="card_btn" v-if="user.role === 'admin'">
+      <button class="btn btn-primary me-3" @click="$emit('event-update')">Edit</button>
+      <button class="btn btn-warning" @click="$emit('event-delete')">Delete</button>
     </div>
   </div>
 </template>
@@ -42,7 +40,7 @@ export default {
 
 <style scoped>
 .card {
-  height: 240px;
+  min-height: 240px;
   text-align: left;
   display: flex;
   flex-direction: column;
@@ -56,7 +54,7 @@ export default {
 }
 .img {
   width: 250px;
-  min-height: 165px;
+  height: 165px;
   cursor: pointer;
 }
 .img > img {
@@ -65,8 +63,14 @@ export default {
   object-fit: cover;
   border-radius: 10px 10px 0 0;
 }
+
+.active {
+  filter: brightness(50%);
+  /* filter: url('@/assets/icons/IconTick.png'); */
+  /* background-origin: ; */
+}
 .text {
-  width: 200px;
+  width: 80%;
 }
 .text h3 {
   font-size: 22px;
@@ -79,9 +83,8 @@ export default {
   margin: 0;
 }
 
-.active {
-  filter: brightness(50%);
-  /* filter: url('@/assets/icons/IconTick.png'); */
-  /* background-origin: ; */
-}
+/* .card_btn {
+  display: flex;
+  justify-content: space-between;
+} */
 </style>

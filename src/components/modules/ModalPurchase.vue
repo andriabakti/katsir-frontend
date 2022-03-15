@@ -16,13 +16,19 @@
       <h5>Total : Rp. {{ formatPrice(total) }}</h5>
       <h5>Payment: Cash</h5>
     </div>
-    <button type="button" class="btn btn_purchase">Purchase</button>
+    <button
+      type="button"
+      class="btn btn_purchase"
+      @click="handlePurchase({ id: user.id, total, tax, items: cart })"
+    >
+      Purchase
+    </button>
   </vue-final-modal>
 </template>
 
 <script>
 // package: vuex
-import { mapGetters } from "vuex";
+import { mapGetters, mapActions } from "vuex";
 // util: numeral
 import { formatPrice } from "@/utils/numeral";
 
@@ -30,6 +36,7 @@ export default {
   name: "ModalPurchase",
   props: {
     isShow: Boolean,
+    eventClose: Function,
   },
   data: () => ({
     formatPrice,
@@ -50,7 +57,13 @@ export default {
       },
     },
   },
-  methods: {},
+  methods: {
+    ...mapActions(["purchaseOrder"]),
+    handlePurchase(payload) {
+      this.purchaseOrder(payload);
+      this.eventClose();
+    },
+  },
 };
 </script>
 

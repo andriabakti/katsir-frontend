@@ -2,12 +2,18 @@
   <nav class="side">
     <div class="up">
       <button class="btn" id="product" @click="toHome"></button>
-      <!-- <button class="btn" id="history" @click="toHistory"></button> -->
-      <button class="btn" id="addition" @click="$emit('toggle-active')"></button>
+      <button class="btn" id="history" @click="openModal"></button>
+      <button
+        v-if="user.role === 'admin'"
+        class="btn"
+        id="addition"
+        @click="$emit('toggle-active')"
+      ></button>
     </div>
     <div class="down">
       <button class="btn" id="exit" @click="showModal"></button>
     </div>
+    <ModalInfo :is-show.sync="modalInfo" :event-close="openModal" />
     <ModalConfirm
       :text="'logout'"
       :text-btn="'Logout'"
@@ -21,22 +27,30 @@
 <script>
 import Vue from "vue";
 // package: vuex
-import { mapMutations } from "vuex";
+import { mapGetters, mapMutations } from "vuex";
 // router: base
 import router from "@/routers";
 // store: base
 import store from "@/stores";
 // component: base
+import ModalInfo from "@/components/bases/ModalInfo";
 import ModalConfirm from "@/components/bases/ModalConfirm";
 
 export default {
   name: "BaseSidebar",
   components: {
+    ModalInfo,
     ModalConfirm,
   },
   data: () => ({
+    modalInfo: false,
     exitActive: false,
   }),
+  computed: {
+    ...mapGetters({
+      user: "getterUser",
+    }),
+  },
   methods: {
     ...mapMutations(["setToken"]),
     toHome() {
@@ -45,6 +59,9 @@ export default {
     toHistory() {
       this.$router.push("/history");
     },
+    openModal() {
+      this.modalInfo = !this.modalInfo;
+    },
     showModal() {
       this.exitActive = !this.exitActive;
     },
@@ -52,7 +69,7 @@ export default {
       localStorage.removeItem("token");
       store.commit("setToken", null);
       router.push("/login");
-      Vue.$toast.success("Logout success");
+      Vue.$toast.info("Logout success");
     },
   },
 };

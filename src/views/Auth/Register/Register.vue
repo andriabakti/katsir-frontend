@@ -4,9 +4,6 @@
       <div class="col-lg-6 left">
         <div class="brand">
           <span class="name" @click="toLanding">Katsir</span>
-          <span class="sub">
-            <i>Online cafe shop for coffee, cakes & dishes</i>
-          </span>
         </div>
       </div>
       <div class="col-lg-6 main">

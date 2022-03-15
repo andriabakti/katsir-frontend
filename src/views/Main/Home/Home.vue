@@ -26,7 +26,7 @@
                   :active="checkActive(item.id)"
                   @event-select="addToCart(item)"
                   @event-update="setUpdate(item)"
-                  @event-delete="toggleDelete"
+                  @event-delete="toggleDelete(item.id)"
                 />
               </div>
             </div>
@@ -36,18 +36,19 @@
       </div>
       <SideCart />
     </div>
-    <ModalAdd
+    <ModalProduct
       :data="dataModal"
       :show.sync="modalActive"
       :event-close="toggleModal"
       :event-confirm="handleEvent"
+      :event-clear="clearModal"
     />
     <ModalConfirm
       :text="'delete this product'"
       :text-btn="'Delete'"
       :show.sync="deleteActive"
       :event-close="toggleDelete"
-      :event-confirm="deleteProduct"
+      :event-confirm="removeProduct"
     />
   </div>
 </template>
@@ -63,7 +64,7 @@ import BaseSidebar from "@/components/bases/BaseSidebar";
 import ModalConfirm from "@/components/bases/ModalConfirm";
 // component: module
 import CardProduct from "@/components/modules/CardProduct";
-import ModalAdd from "@/components/modules/ModalAdd";
+import ModalProduct from "@/components/modules/ModalProduct";
 // import CardPagination from '@/components/modules/CardPagination'
 
 export default {
@@ -82,7 +83,7 @@ export default {
     CardProduct,
     SideCart,
     // CardPagination,
-    ModalAdd,
+    ModalProduct,
     ModalConfirm,
   },
   data: () => ({
@@ -96,7 +97,7 @@ export default {
       name: "",
       price: 0,
       image: null,
-      category_id: 0,
+      category_id: "",
     },
   }),
   computed: {
@@ -123,7 +124,7 @@ export default {
       data.append("name", this.dataModal.name);
       data.append("price", this.dataModal.price);
       data.append("image", this.dataModal.image);
-      data.append("category_id", this.dataModal.category_id);
+      data.append("category_id", parseInt(this.dataModal.category_id));
       this.insertProduct(data).then(() => {
         this.clearModal();
         this.getProduct();
@@ -142,7 +143,7 @@ export default {
       data.append("name", this.dataModal.name);
       data.append("price", this.dataModal.price);
       data.append("image", this.dataModal.image);
-      data.append("category_id", this.dataModal.category_id);
+      data.append("category_id", parseInt(this.dataModal.category_id));
       const container = {
         id: this.dataModal.id,
         data: data,
@@ -157,15 +158,16 @@ export default {
       this.dataModal.name = "";
       this.dataModal.price = 0;
       this.dataModal.image = null;
-      this.dataModal.category_id = 0;
+      this.dataModal.category_id = "";
       this.modalActive = false;
     },
     toggleDelete(id) {
       this.deleteId = id;
       this.deleteActive = !this.deleteActive;
     },
-    deleteProduct() {
+    removeProduct() {
       this.deleteProduct(this.deleteId).then(() => {
+        this.toggleDelete();
         this.deleteId = null;
         this.getProduct();
       });

@@ -33,9 +33,6 @@ export default {
 <style scoped>
 .row {
   height: 80px;
-  position: sticky;
-  top: 0;
-  z-index: 3;
 }
 .title-bar {
   /* height: 90px; */
