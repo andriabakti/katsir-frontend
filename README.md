@@ -71,7 +71,12 @@ npm run serve
     <image width="200" src='./previews/landing.png' />
     <image width="200" src='./previews/auth_register.png' />
     <image width="200" src='./previews/auth_login.png' />
-    <image width="200" src='./previews/home.png' />
+    <image width="200" src='./previews/product_cashier.png' />
+    <image width="200" src='./previews/product_cart.png' />
+    <image width="200" src='./previews/product_checkout.png' />
+    <image width="200" src='./previews/product_admin.png' />
+    <image width="200" src='./previews/product_add.png' />
+    <image width="200" src='./previews/product_update.png' />
   </span>
 </p>
 

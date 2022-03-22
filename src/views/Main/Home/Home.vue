@@ -48,7 +48,7 @@
       :text-btn="'Delete'"
       :show.sync="deleteActive"
       :event-close="toggleDelete"
-      :event-confirm="removeProduct"
+      @event-confirm="removeProduct"
     />
   </div>
 </template>

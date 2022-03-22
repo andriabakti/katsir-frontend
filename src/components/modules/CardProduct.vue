@@ -8,7 +8,7 @@
       <p>Rp. {{ formatPrice(data.price) }}</p>
     </div>
     <div class="card_btn" v-if="user.role === 'admin'">
-      <button class="btn btn-primary me-3" @click="$emit('event-update')">Edit</button>
+      <button class="btn btn-primary me-3" @click="$emit('event-update')">Update</button>
       <button class="btn btn-warning" @click="$emit('event-delete')">Delete</button>
     </div>
   </div>

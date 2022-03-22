@@ -30,19 +30,19 @@ export const interceptorsResponse = () => {
 			return response
 		},
 		function (error) {
-			console.log(error.response.data.result.message)
+			console.log(error.response)
 			if (error.response.status === 403) {
-				console.log(error.response)
+				console.log(error.response.data)
 				if (error.response.data.message === "Token is invalid") {
 					store.commit("setToken", null)
 					localStorage.removeItem("token")
 					router.push("/login")
-					Vue.$toast.warning("Anda tidak boleh merubah token")
+					Vue.$toast.warning("Your session is over, please login again")
 				} else if (error.response.data.message === "Token is expired") {
 					store.commit("setToken", null)
 					localStorage.removeItem("token")
 					router.push("/login")
-					Vue.$toast.warning("Session telah habis, silahkan login kembali")
+					Vue.$toast.warning("You not allowed to change token")
 				}
 			}
 			return Promise.reject(error)
