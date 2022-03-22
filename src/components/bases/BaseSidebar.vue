@@ -3,12 +3,7 @@
     <div class="up">
       <button class="btn" id="product" @click="toHome"></button>
       <button class="btn" id="history" @click="openModal"></button>
-      <button
-        v-if="user.role === 'admin'"
-        class="btn"
-        id="addition"
-        @click="$emit('toggle-active')"
-      ></button>
+      <button v-if="user.role === 'admin'" class="btn" id="addition" @click="$emit('toggle-active')"></button>
     </div>
     <div class="down">
       <button class="btn" id="exit" @click="showModal"></button>
@@ -19,7 +14,7 @@
       :text-btn="'Logout'"
       :show.sync="exitActive"
       :event-close="showModal"
-      :event-confirm="toLogout"
+      @event-confirm="toLogout"
     />
   </nav>
 </template>

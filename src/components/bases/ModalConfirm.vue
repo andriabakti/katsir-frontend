@@ -1,15 +1,11 @@
 <template>
-  <vue-final-modal
-    v-model="showModal"
-    classes="modal-container"
-    content-class="modal-content"
-  >
+  <vue-final-modal v-model="showModal" classes="modal-container" content-class="modal-content">
     <div class="modal-body">
       <p>Are you sure want to {{ text }} ?</p>
     </div>
     <div class="modal-action">
       <button type="button" class="btn btn-cancel" @click="eventClose">Cancel</button>
-      <button type="button" class="btn btn-confirm" @click="eventConfirm">
+      <button type="button" class="btn btn-confirm" @click="$emit('event-confirm')">
         {{ textBtn }}
       </button>
     </div>
@@ -24,7 +20,6 @@ export default {
     text: String,
     textBtn: String,
     eventClose: Function,
-    eventConfirm: Function,
   },
   computed: {
     showModal: {
@@ -76,6 +71,10 @@ export default {
   border-radius: 5px;
   font-weight: 500;
   color: #ffffff;
+}
+.btn:hover {
+  background-color: #ffc107;
+  color: #000000;
 }
 .btn-cancel {
   background-color: #f24f8a;
